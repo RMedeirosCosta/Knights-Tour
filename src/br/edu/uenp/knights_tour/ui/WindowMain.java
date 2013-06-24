@@ -6,17 +6,17 @@ import java.awt.Container;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -26,6 +26,9 @@ import br.edu.uenp.knights_tour.application.controller.*;
 import br.edu.uenp.knights_tour.application.dto.DTOLocation;
 import br.edu.uenp.knights_tour.application.view.ViewMain;
 import br.edu.uenp.knights_tour.ui.events.EventsMain;
+import javax.swing.border.TitledBorder;
+import java.awt.ComponentOrientation;
+import java.awt.GridLayout;
 
 @SuppressWarnings("serial")
 public class WindowMain extends javax.swing.JFrame implements ViewMain {
@@ -95,10 +98,8 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     private JButton btnLocationX8Y6;
     private JButton btnLocationX8Y7;
     private JButton btnLocationX8Y8;
-    private JCheckBox chkShowVisitedWays;
     private JSpinner edtCoordinateX;
     private JSpinner edtCoordinateY;
-    private JTextArea edtPossibleDestinations;
     private JLabel lblCoordinateX;
     private JLabel lblCoordinateY;
     private JLabel lblPoweredBy;
@@ -122,20 +123,24 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     private JLabel lblY8;
     private JPanel pnlPossibleDestinations;
     private JPanel pnlInitialLocation;
+    private JPanel pnlDestinationsColor;
+    private JScrollPane scrDestinationsColor;
     private JPanel pnlTable;
-    private JScrollPane scrPossibleDestinations;
     private JSeparator sepX;
     private JSeparator sepY;
 
     private ControllerMain controller;
     private JLabel lblInitialColor;
     private Map<String, Color> colorStorage;
+    private Map<Integer, Color> levelsAlreadyPainted;
     
     public WindowMain() {
+    	setResizable(false);
         this.controller = new ControllerMain(this);        
         this.initComponents();        
         this.setListeners();
         this.colorStorage = new HashMap<>();
+        this.levelsAlreadyPainted = new HashMap<>();
         
         for (Component component: this.pnlTable.getComponents()) {
         	if (!(component instanceof JButton))
@@ -143,7 +148,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         	
         	JButton btn = (JButton) component;
         	
-			 this.colorStorage.put(btn.getText(), btn.getBackground()); 
+			 this.colorStorage.put(btn.getText(), btn.getBackground());
 		}
     }    
                               
@@ -242,9 +247,6 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         edtCoordinateY = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));        
         btnClear = new JButton();
         btnExecute = new JButton();
-        chkShowVisitedWays = new JCheckBox();
-        scrPossibleDestinations = new JScrollPane();
-        edtPossibleDestinations = new JTextArea();
         lblPoweredBy = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -842,173 +844,167 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 
         btnClear.setText("Limpar");
         btnExecute.setText("Executar");
-
-        chkShowVisitedWays.setText("Mostrar Caminho Percorrido");
-
-        edtPossibleDestinations.setColumns(20);
-        edtPossibleDestinations.setRows(5);
-        scrPossibleDestinations.setViewportView(edtPossibleDestinations);
         
         lblInitialColor = new JLabel("Cor da Posi\u00E7\u00E3o Inicial");
-        lblInitialColor.setForeground(new Color(102, 0, 255));
+        lblInitialColor.setForeground(Color.BLUE);
+        
+        pnlDestinationsColor = new JPanel();
+        scrDestinationsColor = new JScrollPane(pnlDestinationsColor, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        pnlDestinationsColor.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        pnlDestinationsColor.setBorder(new TitledBorder(null, "Cores de Destino", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         
         javax.swing.GroupLayout gl_pnlPossibleDestinations = new javax.swing.GroupLayout(pnlPossibleDestinations);
         gl_pnlPossibleDestinations.setHorizontalGroup(
-        	gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING)
+        	gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
         			.addContainerGap()
-        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING)
-        				.addComponent(scrPossibleDestinations, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-        				.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
-        					.addGroup(Alignment.TRAILING, gl_pnlPossibleDestinations.createSequentialGroup()
-        						.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        						.addPreferredGap(ComponentPlacement.RELATED)
-        						.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING)
-        							.addComponent(chkShowVisitedWays)
-        							.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
-        								.addComponent(btnClear)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(btnExecute))))
-        					.addComponent(lblInitialColor)))
-        			.addContainerGap())
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING, false)
+        				.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
+        					.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING, false)
+        						.addComponent(btnClear, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        						.addComponent(btnExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        				.addComponent(lblInitialColor))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         gl_pnlPossibleDestinations.setVerticalGroup(
         	gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING)
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING, false)
         				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
-        					.addComponent(chkShowVisitedWays)
-        					.addGap(18)
-        					.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(btnClear)
-        						.addComponent(btnExecute)))
-        				.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addContainerGap()
+        					.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
+        					.addGap(20)
+        					.addComponent(btnClear)
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(btnExecute)))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(lblInitialColor)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(scrPossibleDestinations, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+        			.addGap(10)
+        			.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
         			.addContainerGap())
         );
+        pnlDestinationsColor.setLayout(new GridLayout(0, 1));
+        
         pnlPossibleDestinations.setLayout(gl_pnlPossibleDestinations);
-
+        
+        scrDestinationsColor.setViewportView(pnlDestinationsColor);
+        
         lblPoweredBy.setText("Desenvolvido por Ricardo Medeiros - 626 e Lucas Mendes - 677. Universidade Estadual do Norte do Paraná - Campus Luiz Meneghel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblY1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblY2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblY3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblY4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblY5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblY6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblY7, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblY8, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblY)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(sepY, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(sepX)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblX))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(14, 14, 14))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(45, 45, 45)
-                                        .addComponent(lblX1)
-                                        .addGap(58, 58, 58)
-                                        .addComponent(lblX2)
-                                        .addGap(59, 59, 59)
-                                        .addComponent(lblX3)
-                                        .addGap(59, 59, 59)
-                                        .addComponent(lblX4)
-                                        .addGap(57, 57, 57)
-                                        .addComponent(lblX5)
-                                        .addGap(61, 61, 61)
-                                        .addComponent(lblX6)
-                                        .addGap(57, 57, 57)
-                                        .addComponent(lblX7)
-                                        .addGap(57, 57, 57)
-                                        .addComponent(lblX8)))
-                                .addGap(18, 18, 18)
-                                .addComponent(pnlPossibleDestinations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(lblPoweredBy)))
-                .addContainerGap(14, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblY1, Alignment.TRAILING)
+        				.addComponent(lblY2, Alignment.TRAILING)
+        				.addComponent(lblY3, Alignment.TRAILING)
+        				.addComponent(lblY4, Alignment.TRAILING)
+        				.addComponent(lblY5, Alignment.TRAILING)
+        				.addComponent(lblY6, Alignment.TRAILING)
+        				.addComponent(lblY7, Alignment.TRAILING)
+        				.addComponent(lblY8, Alignment.TRAILING))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        					.addGroup(layout.createSequentialGroup()
+        						.addComponent(sepY, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+        							.addGroup(layout.createSequentialGroup()
+        								.addComponent(sepX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(lblX))
+        							.addGroup(layout.createSequentialGroup()
+        								.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        								.addGap(14))))
+        					.addGroup(layout.createSequentialGroup()
+        						.addGap(45)
+        						.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        							.addGroup(layout.createSequentialGroup()
+        								.addGap(10)
+        								.addComponent(lblPoweredBy))
+        							.addGroup(layout.createSequentialGroup()
+        								.addComponent(lblX1)
+        								.addGap(58)
+        								.addComponent(lblX2)
+        								.addGap(59)
+        								.addComponent(lblX3)
+        								.addGap(59)
+        								.addComponent(lblX4)
+        								.addGap(57)
+        								.addComponent(lblX5)
+        								.addGap(61)
+        								.addComponent(lblX6)
+        								.addGap(57)
+        								.addComponent(lblX7)
+        								.addGap(57)
+        								.addComponent(lblX8)
+        								.addGap(71)
+        								.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)))))
+        				.addComponent(lblY))
+        			.addContainerGap(215, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(lblY)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblY8)
-                        .addGap(40, 40, 40)
-                        .addComponent(lblY7)
-                        .addGap(41, 41, 41)
-                        .addComponent(lblY6)
-                        .addGap(42, 42, 42)
-                        .addComponent(lblY5)
-                        .addGap(40, 40, 40)
-                        .addComponent(lblY4)
-                        .addGap(41, 41, 41)
-                        .addComponent(lblY3)
-                        .addGap(41, 41, 41)
-                        .addComponent(lblY2)
-                        .addGap(43, 43, 43)
-                        .addComponent(lblY1)
-                        .addGap(92, 92, 92))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(pnlPossibleDestinations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(sepY)
-                                    .addComponent(pnlTable, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(sepX, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblX))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblX1)
-                                    .addComponent(lblX2)
-                                    .addComponent(lblX3)
-                                    .addComponent(lblX4)
-                                    .addComponent(lblX5)
-                                    .addComponent(lblX6)
-                                    .addComponent(lblX7)
-                                    .addComponent(lblX8))
-                                .addGap(5, 5, 5)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(lblPoweredBy))))
+        	layout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(15)
+        			.addComponent(lblY)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(lblY8)
+        					.addGap(40)
+        					.addComponent(lblY7)
+        					.addGap(41)
+        					.addComponent(lblY6)
+        					.addGap(42)
+        					.addComponent(lblY5)
+        					.addGap(40)
+        					.addComponent(lblY4)
+        					.addGap(41)
+        					.addComponent(lblY3)
+        					.addGap(41)
+        					.addComponent(lblY2)
+        					.addGap(43)
+        					.addComponent(lblY1)
+        					.addGap(92))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        						.addComponent(sepY, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, 436, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        						.addComponent(sepX, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblX))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblX1)
+        						.addComponent(lblX2)
+        						.addComponent(lblX3)
+        						.addComponent(lblX4)
+        						.addComponent(lblX5)
+        						.addComponent(lblX6)
+        						.addComponent(lblX7)
+        						.addComponent(lblX8))
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        			.addGap(14))
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(41)
+        			.addComponent(pnlPossibleDestinations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(lblPoweredBy)
+        			.addContainerGap())
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }                   
-
-    @Override
-    public void clearPossibleDestinations() {
-        this.edtPossibleDestinations.setText("");
-    }
 
     @Override
     public void resetCoordinateX() {
@@ -1021,11 +1017,6 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     }
 
     @Override
-    public void uncheckVisitedWays() {
-        this.chkShowVisitedWays.setSelected(false);
-    }
-    
-    @Override
     public boolean requestConfirmation(String mensagem) {
         return (JOptionPane.showConfirmDialog(this, mensagem, "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION);
    }
@@ -1036,11 +1027,6 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
    }           
    
    @Override
-   public void addPossibleDestination(String destinoPossivel) {
-       this.edtPossibleDestinations.setText(this.edtPossibleDestinations.getText()+"\n"+destinoPossivel);
-   }
-   
-   @Override
    public void showError(String mensagemDeErro) {
        JOptionPane.showMessageDialog(this, mensagemDeErro, "Erro", JOptionPane.ERROR_MESSAGE);
    }
@@ -1048,6 +1034,9 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
    @Override
    public void resetAllColors(){
 	   this.resetAllColors(this.getContentPane());
+	   this.pnlDestinationsColor.removeAll();
+	   this.pnlDestinationsColor.revalidate();
+	   this.levelsAlreadyPainted.clear();
    }
    
    public void resetAllColors(Container container) {
@@ -1090,8 +1079,22 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     
     @Override
     public void paintDestinationLocationColor(String coordinateXY, Integer level) {
-    	this.changeLocationColor(coordinateXY, new Color((2*level), (2*level), (2*level)));
-    }
+    	Color  destinationColor;
+    	
+    	if (!this.levelsAlreadyPainted.containsKey(level)) {
+        	Random random 			   = new Random();
+        	JLabel lblDestinationColor = new JLabel("Nível ".concat(level.toString()));
+        	destinationColor		   = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)); 
+        	lblDestinationColor.setForeground(destinationColor); 
+        	this.pnlDestinationsColor.add(lblDestinationColor);
+        	this.pnlDestinationsColor.revalidate();
+        	this.levelsAlreadyPainted.put(level, destinationColor);        	
+    	} else {
+    		destinationColor = this.levelsAlreadyPainted.get(level);
+    	}
+    	
+    	this.changeLocationColor(coordinateXY, destinationColor);    	
+    }    
     
     public void changeLocationColor(String CoordinateXY, Color color) {
     	for (Component component : this.pnlTable.getComponents()) {
@@ -1112,11 +1115,6 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     		lbl.setForeground(color);
     }
     
-    @Override
-    public void addInitialLocation(String initialLocation) {
-    	this.edtPossibleDestinations.setText(initialLocation+"\n");
-    }
-
 	@Override
 	public DTOLocation getInitialLocation() {
 		return new DTOLocation(Integer.parseInt(this.edtCoordinateX.getValue().toString()), Integer.parseInt(this.edtCoordinateY.getValue().toString()));

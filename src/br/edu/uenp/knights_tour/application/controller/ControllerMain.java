@@ -19,8 +19,6 @@ public class ControllerMain {
         this.view.resetAllColors();    	
         this.view.resetCoordinateX();
         this.view.resetCoordinateY();
-        this.view.uncheckVisitedWays();
-        this.view.clearPossibleDestinations();
     }
     
     public void closeWindow(){
@@ -30,14 +28,12 @@ public class ControllerMain {
     
     public void execute() {
         try {
-        	this.view.clearPossibleDestinations();
         	this.view.resetAllColors();
         	
         	DTOLocation DTOinitialLocation = this.view.getInitialLocation();
         	
             Location initialLocation = new Location(DTOinitialLocation.getX(), DTOinitialLocation.getY());
             
-            this.view.addInitialLocation("Posição inicial: "+initialLocation.toString());
             this.view.changeInitialLocationColor(initialLocation.toStringClear());
             
             VisitedWays service = new VisitedWays();
@@ -63,7 +59,6 @@ public class ControllerMain {
     
     public void changeInitialColor() {
     	this.view.resetAllColors();
-    	this.view.clearPossibleDestinations();
     	this.view.changeInitialLabelColor();
     	
     	DTOLocation DTOInitialLocation = this.view.getInitialLocation();
