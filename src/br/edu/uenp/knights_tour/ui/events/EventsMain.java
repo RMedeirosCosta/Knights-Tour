@@ -6,6 +6,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 
@@ -24,6 +26,18 @@ public class EventsMain {
 		public void keyPressed(KeyEvent eve) {
 			if (eve.getKeyCode() == KeyEvent.VK_ESCAPE)
 				this.controller.closeWindow();
+		}
+	}
+	
+	public static class ClosingMainWindow extends WindowAdapter {
+		private ControllerMain controller;
+		
+		public ClosingMainWindow(ControllerMain controller) {
+			this.controller = controller;
+		}
+		
+		public void windowClosing(WindowEvent eve) {
+			this.controller.closeWindow();
 		}
 	}
 	

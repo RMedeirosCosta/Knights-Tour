@@ -19,6 +19,8 @@ public class ControllerMain {
         this.view.resetAllColors();    	
         this.view.resetCoordinateX();
         this.view.resetCoordinateY();
+        this.view.resetVisitedWays();
+        
     }
     
     public void closeWindow(){
@@ -28,36 +30,57 @@ public class ControllerMain {
     
     public void execute() {
         try {
-        	this.view.resetAllColors();
-        	
-        	DTOLocation DTOinitialLocation = this.view.getInitialLocation();
-        	
-            Location initialLocation = new Location(DTOinitialLocation.getX(), DTOinitialLocation.getY());
+        	DTOLocation DTOinitialLocation = this.view.getInitialLocation();        	
+            Location initialLocation 	   = new Location(DTOinitialLocation.getX(), DTOinitialLocation.getY());
             
+        	this.view.showWarning("Essa operação pode demorar alguns segundos.\n Aproveite para ir tomar um café :)");
+        	this.view.resetAllColors();            
             this.view.changeInitialLocationColor(initialLocation.toStringClear());
             
             VisitedWays service = new VisitedWays();
             service.buildHierarchy(initialLocation);
             
-             this.printWays(initialLocation, 1);
+             this.printDestination(initialLocation, 1);
             
         } catch (LocationOffTheBoardException ex) {
             this.view.showError(ex.getMessage());
         }
     }
     
-    public void printWays(Location parent, Integer level) {
+    public void printDestination(Location parent, Integer level) {
     	if ((parent.getNodes() == null) || (parent.getNodes().isEmpty()))
     		return;
     	
     	for (Location node : parent.getNodes()) {
 			this.view.paintDestinationLocationColor(node.toStringClear(), level);
+			this.printWays(node, level);
 		}
     	
     	for (Location node : parent.getNodes()) {
     		Integer levelNodes = ++level;
-			this.printWays(node, levelNodes);
+			this.printDestination(node, levelNodes);
+			this.printWays(node, level);
 		}
+    }
+    
+    private void printWays(Location destination, Integer level) {
+    	this.view.insertLineBreak();    	
+    	this.view.insertLineBreak();
+    	this.view.printDestination(destination.toString(), level);
+    	this.view.insertLineBreak();
+    	this.view.insertLabel();    	
+    	
+    	Location parent = destination.getParent();
+    	
+    	while (parent != null) {
+    		this.view.printVisitedWay(parent.toString());
+    		parent = parent.getParent();
+    		
+    		if (parent == null)
+    			this.view.insertPeriod();
+    		else
+    			this.view.insertPipe();
+		}    	
     }
     
     public void changeInitialColor() {
