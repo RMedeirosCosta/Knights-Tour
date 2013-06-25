@@ -26,8 +26,9 @@ public class ControllerMain {
         this.view.resetInitialCoordinateY();
         this.view.resetFinalCoordinateX();
         this.view.resetFinalCoordinateY();
-        this.view.resetVisitedWays();
-        
+        this.view.resetVisitedWays();        
+        this.view.setVisibleLabelVisitedWays(false);
+        this.view.setVisiblePanelDestinationsColor(false);
     }
     
     public void closeWindow(){
@@ -35,11 +36,31 @@ public class ControllerMain {
             this.view.closeWindow();
     }
     
+    private String getInformationMessage(boolean finalLocationExists) {
+    	if (finalLocationExists)
+    		return "Essa operação pode demorar alguns segundos - aproveite para tomar um café :D - \n"+
+		  	  	   "pois serão calculados todos os possíveis movimentos e serão pintados os caminhos\n"+
+		           "percorridos para cada movimento. O tabuleiro pode ficar muito colorido e se \n"+
+		           "tornar confuso. Para isso utilize o log de caminhos percorridos abaixo e o\n"+
+		           "painel com a identificação de cada cor conforme seu nível hierárquico.";
+    	else
+    		return "O objetivo não é trazer o melhor caminho e sim o primeiro que for encontrado.";
+    }
+    
+    private void showDestinationVisitedWays(Location destination) {
+    	this.view.setVisibleLabelVisitedWays(true);
+    	this.view.changeFinalLocationColor(destination.toStringClear());
+    	this.printWays(destination, EMPTY_LEVEL);
+    	this.paintVisitedWays(destination);    	
+    }
+    
     public void execute() {
         try {
+        	// Instancio a posição inicial (Caso não exista no tabuleiro é lançado uma exceção        	
         	DTOLocation DTOinitialLocation = this.view.getInitialLocation();        	
             Location initialLocation 	   = new Location(DTOinitialLocation.getX(), DTOinitialLocation.getY());
 
+            // Instancio a posição final. (Caso não exista, é retornado todas as posições possíveis.
         	DTOLocation DTOfinalLocation;
         	Location finalLocation;
             
@@ -50,29 +71,67 @@ public class ControllerMain {
             	finalLocation = null;
             }
             
-        	this.view.showWarning("Essa operação pode demorar alguns segundos.\n Aproveite para ir tomar um café :)");
-        	this.view.resetAllColors();            
+            // Mostro para o usuário a mensagem de acordo com a opção que ele escolheu. (Com posição de destino ou sem)
+            this.view.showInformation(this.getInformationMessage((finalLocation == null)));
+            
+            // Limpo todas as cores
+        	this.view.resetAllColors();
+        	
+        	// Altero a cor da posição inicial
             this.view.changeInitialLocationColor(initialLocation.toStringClear());
             
+            // Instâncio o serviço que cria a hirearquia de caminhos possíveis 
             VisitedWays service = new VisitedWays();
+            
+            // Se foi determinado uma posição de destino, ela é passada para o serviço.
             service.setDestination(finalLocation);
             
             try {
+            	// Chamo o método que cria a hierarquia do posição inicial
             	service.buildHierarchy(initialLocation);
+            	
+            /** Caso tenha sido passado uma posição de destino e a mesma for encontrada, a exceção vai ser capturada
+             * nesse catch. Então vai ser exibido o caminho apenas do destino.
+             */
             } catch(DestinationLocationFound ex) {
-            	this.view.changeFinalLocationColor(ex.getDestination().toStringClear());
-            	this.printWays(ex.getDestination(), EMPTY_LEVEL);
+            	// Chama método que imprime os caminhos visitados do destino e finaliza o método execute
+            	this.showDestinationVisitedWays(ex.getDestination());
             	return;
             }
             
-             this.printDestination(initialLocation, 1);
+            // Habilito o painel de cores dos níveis
+            this.view.setVisiblePanelDestinationsColor(true);
+            
+            // E chamo o método que imprime na tela recursivamente todos os caminhos possíveis
+            this.printDestination(initialLocation, 1);
             
         } catch (LocationOffTheBoardException ex) {
             this.view.showError(ex.getMessage());
         }
     }
     
-    public void printDestination(Location parent, Integer level) {
+    // Pinta as posições na tela. De cima para baixo na hierarquia
+    private void paintVisitedWays(Location destination) {
+    	Location parent = destination.getParent();
+    	Location aux;
+
+    	while (parent != null) {
+			this.view.paintVisitedWayLocationColor(parent.toStringClear());
+			parent = parent.getParent();
+			
+			// Verificações necessárias para não se pintar a posição inicial
+			if (parent != null) {
+				aux = parent.getParent();
+				
+				if (aux == null)
+					return;
+			}
+		}
+    }
+    
+    // Imprime recursivamente na tela todas as posições possíveis - ISSO CAUSA UMA GRANDE CONFUSÃO DE CORES NO TABULEIRO 
+    // HEHEHE =-D
+    private void printDestination(Location parent, Integer level) {
     	if ((parent.getNodes() == null) || (parent.getNodes().isEmpty()))
     		return;
     	
@@ -88,6 +147,7 @@ public class ControllerMain {
 		}
     }
     
+    // Imprime no log os caminhso percorridos de terminado destino 
     private void printWays(Location destination, Integer level) {
     	this.view.insertLineBreak();    	
     	this.view.insertLineBreak();
@@ -113,6 +173,7 @@ public class ControllerMain {
 		}    	
     }
     
+    // Altera cor da posição inicial
     public void changeInitialColor() {
     	this.view.resetAllColors();
     	this.view.changeInitialLabelColor();
@@ -126,7 +187,8 @@ public class ControllerMain {
     	} catch(LocationOffTheBoardException ex){}
     	
     }
-    
+
+    // Altera cor da posição final    
     public void changeFinalColor() {
     	this.view.changeFinalLabelColor();
     	
@@ -157,6 +219,14 @@ public class ControllerMain {
     	}
     	catch(LocationOffTheBoardException ex){}
     }
+    
+    /**
+     *  Método que altera a posição conforme com a necessida.
+     *  Por exemplo: Se já foi selecionado a posição inicial, então será pintado a posição final. Além disso,
+     *  são alterados os toolTipTexts dos botões.
+     *  
+     * @param coordinates - Coordenadas da posição alterada
+     */
     
     public void setLocation(String coordinates) {
     	final String INITIAL_LOCATION = "Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.";
@@ -199,5 +269,16 @@ public class ControllerMain {
     		this.view.changeFinalLocationColor(finalLocation.toStringClear());
     	}
     	catch(LocationOffTheBoardException ex){}
-    }    
+    }
+    
+    public void showHelp() {
+    	final String HELP = "DICAS: \n\n"+
+    						 "1º - Clique em uma posição no tabuleiro para determinar uma posição inicial.\n"+
+    						 "2º - Se você quiser determinar uma posição final, clique novamente em outra posição.\n"+
+    						 "3º - Para alterar as cores de marcação das posições, basta clicar nos respectivos rótulos.\n"+
+    						 "4º - Após executar a operação, basta selecionar outra posição inicial ou clicar em \"Limpar\"\n\n\n"+
+    						 "Para mais informações sobre o código fonte, consulte: Knights-Tour\\doc\\index.html";
+    	
+    	this.view.showInformation(HELP);
+    }
 }

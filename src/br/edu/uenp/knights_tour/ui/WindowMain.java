@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import java.awt.ComponentOrientation;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.KeyListener;
+
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -21,23 +28,12 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-
+import javax.swing.ImageIcon;
 
 import br.edu.uenp.knights_tour.application.controller.*;
 import br.edu.uenp.knights_tour.application.dto.DTOLocation;
 import br.edu.uenp.knights_tour.application.view.ViewMain;
 import br.edu.uenp.knights_tour.ui.events.EventsMain;
-
-
-import java.awt.ComponentOrientation;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.event.KeyListener;
-import javax.swing.SwingConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.SpinnerModel;
 
 @SuppressWarnings("serial")
 public class WindowMain extends javax.swing.JFrame implements ViewMain {
@@ -152,6 +148,8 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     private JSpinner edtFinalCoordinateX;
     private JSpinner edtFinalCoordinateY;
     private JLabel lblFinalColor;
+    private JLabel lblVisitedWaysColor;
+    private JButton btnHelp;
     
     public WindowMain() {
     	setResizable(false);
@@ -307,6 +305,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         scrDestinationsColor.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDestinationsColor.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         pnlDestinationsColor = new JPanel();
+        pnlDestinationsColor.setVisible(false);
         pnlDestinationsColor.setToolTipText("Aqui ser\u00E3o mostradas as cores de cada n\u00EDvel");
         pnlDestinationsColor.add(scrDestinationsColor);
         pnlDestinationsColor.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -319,7 +318,8 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         lblFinalColor.setToolTipText("Clique aqui para alterar a cor da posi\u00E7\u00E3o final");
         lblFinalColor.setForeground(new Color(0, 128, 0));
         
-        JLabel lblVisitedWaysColor = new JLabel("Cor dos Caminhos Percorridos");
+        lblVisitedWaysColor = new JLabel("Cor dos Caminhos Percorridos");
+        lblVisitedWaysColor.setVisible(false);
         lblVisitedWaysColor.setToolTipText("Clique aqui para alterar a cor da posi\u00E7\u00E3o final");
         lblVisitedWaysColor.setForeground(new Color(255, 140, 0));
         
@@ -328,21 +328,22 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         	gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
         			.addContainerGap()
-        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING)
-        				.addComponent(pnlDestinationsColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addGroup(Alignment.LEADING, gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING, false)
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING, false)
         					.addComponent(lblFinalColor, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         					.addComponent(lblInitialColor, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         					.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
         						.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
         						.addPreferredGap(ComponentPlacement.RELATED)
         						.addComponent(pnlFinalLocation, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)))
-        				.addComponent(lblVisitedWaysColor, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(Alignment.LEADING, gl_pnlPossibleDestinations.createSequentialGroup()
-        					.addComponent(btnClear)
-        					.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-        					.addComponent(btnExecute)))
-        			.addContainerGap())
+        				.addComponent(lblVisitedWaysColor, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
+        					.addComponent(pnlDestinationsColor, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING, false)
+        						.addComponent(btnClear, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        						.addComponent(btnExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         gl_pnlPossibleDestinations.setVerticalGroup(
         	gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
@@ -358,11 +359,14 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(lblVisitedWaysColor)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnClear)
-        				.addComponent(btnExecute))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
+        					.addGap(32)
+        					.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
+        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
+        					.addComponent(btnClear)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnExecute)))
         			.addContainerGap())
         );
         pnlFinalLocation.setLayout(new GridLayout(0, 2, 0, 0));
@@ -412,63 +416,91 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         
         JLabel lblInformation = new JLabel("Pare o mouse sobre os componentes para obter informa\u00E7\u00E3o");
         lblInformation.setToolTipText("Esse trabalho merece 10. \r\nVoc\u00EA n\u00E3o acha? :]");
+        
+        btnHelp = new JButton("");
+        btnHelp.setToolTipText("Clique aqui para obter ajuda.");
+        btnHelp.setIcon(new ImageIcon(WindowMain.class.getResource("/com/sun/java/swing/plaf/windows/icons/Question.gif")));
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
-        			.addGap(23)
-        			.addComponent(lblY)
-        			.addGap(228)
-        			.addComponent(lblInformation))
-        		.addGroup(groupLayout.createSequentialGroup()
         			.addGap(74)
         			.addComponent(lblPoweredBy))
-        		.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-        			.addGroup(groupLayout.createSequentialGroup()
-        				.addGap(23)
-        				.addComponent(pnlLogVisitedWays, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        			.addGroup(groupLayout.createSequentialGroup()
-        				.addGap(11)
-        				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        					.addComponent(lblY8)
-        					.addComponent(lblY7)
-        					.addComponent(lblY6)
-        					.addComponent(lblY5)
-        					.addComponent(lblY4)
-        					.addComponent(lblY3)
-        					.addComponent(lblY2)
-        					.addComponent(lblY1))
-        				.addGap(6)
-        				.addComponent(sepY, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        					.addGroup(groupLayout.createSequentialGroup()
-        						.addGap(35)
-        						.addComponent(lblX1)
-        						.addGap(58)
-        						.addComponent(lblX2)
-        						.addGap(59)
-        						.addComponent(lblX3)
-        						.addGap(59)
-        						.addComponent(lblX4)
-        						.addGap(57)
-        						.addComponent(lblX5)
-        						.addGap(61)
-        						.addComponent(lblX6)
-        						.addGap(57)
-        						.addComponent(lblX7)
-        						.addGap(57)
-        						.addComponent(lblX8)
-        						.addGap(66)
-        						.addComponent(sepX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        						.addGap(6)
-        						.addComponent(lblX)
-        						.addGap(11))
-        					.addGroup(groupLayout.createSequentialGroup()
-        						.addGap(6)
-        						.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, 508, Short.MAX_VALUE)))
-        				.addPreferredGap(ComponentPlacement.RELATED)
-        				.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-        				.addGap(33)))
+        		.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+        			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+        					.addGap(23)
+        					.addComponent(pnlLogVisitedWays, GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addGap(11)
+        									.addComponent(lblY1)
+        									.addGap(6)
+        									.addComponent(sepY, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addContainerGap()
+        									.addComponent(lblY2))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addContainerGap()
+        									.addComponent(lblY3))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addContainerGap()
+        									.addComponent(lblY4))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addContainerGap()
+        									.addComponent(lblY5))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addContainerGap()
+        									.addComponent(lblY6))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addContainerGap()
+        									.addComponent(lblY7))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addContainerGap()
+        									.addComponent(lblY8)))
+        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addGap(41)
+        									.addComponent(lblX1)
+        									.addGap(65)
+        									.addComponent(lblX2)
+        									.addGap(66)
+        									.addComponent(lblX3)
+        									.addGap(68)
+        									.addComponent(lblX4)
+        									.addGap(63)
+        									.addComponent(lblX5)
+        									.addGap(65)
+        									.addComponent(lblX6)
+        									.addGap(69)
+        									.addComponent(lblX7)
+        									.addPreferredGap(ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+        									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+        										.addGroup(groupLayout.createSequentialGroup()
+        											.addComponent(sepX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        											.addGap(6)
+        											.addComponent(lblX)
+        											.addGap(11))
+        										.addGroup(groupLayout.createSequentialGroup()
+        											.addComponent(lblX8)
+        											.addGap(35))))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addGap(6)
+        									.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, 508, Short.MAX_VALUE)))
+        							.addPreferredGap(ComponentPlacement.RELATED))
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGap(23)
+        							.addComponent(lblY)
+        							.addGap(228)
+        							.addComponent(lblInformation)
+        							.addGap(28)))
+        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        						.addComponent(btnHelp, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))))
+        			.addGap(33))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -476,25 +508,29 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         			.addGap(14)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addComponent(lblY)
-        				.addComponent(lblInformation))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblInformation)
+        						.addComponent(btnHelp, GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE))
+        					.addGap(4)))
         			.addGap(3)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(2)
+        					.addGap(24)
         					.addComponent(lblY8)
-        					.addGap(40)
+        					.addGap(39)
         					.addComponent(lblY7)
-        					.addGap(41)
+        					.addGap(38)
         					.addComponent(lblY6)
-        					.addGap(42)
-        					.addComponent(lblY5)
         					.addGap(40)
+        					.addComponent(lblY5)
+        					.addGap(37)
         					.addComponent(lblY4)
-        					.addGap(41)
+        					.addGap(42)
         					.addComponent(lblY3)
-        					.addGap(41)
+        					.addGap(38)
         					.addComponent(lblY2)
-        					.addGap(43)
+        					.addGap(32)
         					.addComponent(lblY1))
         				.addGroup(groupLayout.createSequentialGroup()
         					.addGap(8)
@@ -509,8 +545,9 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         						.addComponent(lblX4)
         						.addComponent(lblX5)
         						.addComponent(lblX6)
-        						.addComponent(lblX7)
-        						.addComponent(lblX8)))
+        						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        							.addComponent(lblX7)
+        							.addComponent(lblX8))))
         				.addGroup(groupLayout.createSequentialGroup()
         					.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         					.addGap(5)
@@ -1009,7 +1046,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 
     @Override
     public boolean requestConfirmation(String message) {
-        return (JOptionPane.showConfirmDialog(this, message, "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION);
+        return (JOptionPane.showConfirmDialog(this, message, "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION);
    }
     
    @Override
@@ -1019,7 +1056,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
    
    @Override
    public void showError(String errorMessage) {
-       JOptionPane.showMessageDialog(this, errorMessage, "Erro", JOptionPane.ERROR_MESSAGE);
+       JOptionPane.showMessageDialog(this, errorMessage, "ERRO", JOptionPane.ERROR_MESSAGE);
    }
    
    @Override
@@ -1042,7 +1079,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 	   }
    }
    
-   public void setKeyListener(Container container, KeyListener listener) {
+   private void setKeyListener(Container container, KeyListener listener) {
 	  for (Component component : container.getComponents()) {
 		component.addKeyListener(listener);
 		
@@ -1053,7 +1090,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
    
    public void setListeners() {
 	   this.addWindowListener(new EventsMain.ClosingMainWindow(this.controller));
-	   KeyListener keyListener = new EventsMain.CloseWindowKeyPressed(this.controller);
+	   KeyListener keyListener = new EventsMain.MainWindowKeyPressed(this.controller);
 	   this.addKeyListener(keyListener);
 	   this.setKeyListener(this.getContentPane(), keyListener);   
 	   
@@ -1061,6 +1098,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 	   this.btnExecute.addActionListener(new EventsMain.ExecuteActionPerformed(this.controller));
 	   this.lblInitialColor.addMouseListener(new EventsMain.ChangeInitialColorMouseClicked(this.controller));
 	   this.lblFinalColor.addMouseListener(new EventsMain.ChangeFinalColorMouseClicked(this.controller));
+	   this.btnHelp.addActionListener(new EventsMain.HelpActionPerformed(this.controller));
 	   
 	   for (Component component: this.pnlTable.getComponents()) {
 		   JButton btn = (JButton) component;
@@ -1160,7 +1198,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 
 	@Override
 	public void showWarning(String alertMessage) {
-		JOptionPane.showMessageDialog(this, alertMessage, "Atenção!", JOptionPane.WARNING_MESSAGE);		
+		JOptionPane.showMessageDialog(this, alertMessage, "ATENÇÃO!", JOptionPane.WARNING_MESSAGE);		
 	}
 
 	@Override
@@ -1220,5 +1258,25 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 	@Override
 	public void printDestination(String coordinateXY) {
 		this.edtVisitedWays.setText(this.edtVisitedWays.getText()+"Destino: "+coordinateXY);		
+	}
+
+	@Override
+	public void paintVisitedWayLocationColor(String coordinateXY) {
+		this.changeLocationColor(coordinateXY, this.lblVisitedWaysColor.getForeground());		
+	}
+
+	@Override
+	public void setVisibleLabelVisitedWays(boolean show) {
+		this.lblVisitedWaysColor.setVisible(show);		
+	}
+
+	@Override
+	public void setVisiblePanelDestinationsColor(boolean show) {
+		this.pnlDestinationsColor.setVisible(show);		
+	}
+
+	@Override
+	public void showInformation(String information) {
+		JOptionPane.showMessageDialog(this, information, "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);				
 	}
 }

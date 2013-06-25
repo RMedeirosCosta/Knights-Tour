@@ -15,6 +15,13 @@ public class Location {
 	private 	  Location 	    parent;
 	private 	  Set<Location> nodes;
 	
+	/**
+	 * 
+	 * @param x - Coordenada X
+	 * @param y - Coordenada y
+	 * @throws LocationOffTheBoardException - Exceção é disparada caso não exista dentro do tabuleiro a posição de acordo
+	 * com as coordenadas passadas.
+	 */
     public Location(Integer x, Integer y) throws LocationOffTheBoardException{
         // Verifico se a posição existe no tabuleiro de acordo com as coordenadas passadas        
         if (((x <= 0) || (x > 8)) || ((y <= 0) || (y > 8)))
@@ -80,6 +87,10 @@ public class Location {
         return hash;
     }
     
+    /**
+     * 
+     * @return Retorna as posições onde é possível se movimentar
+     */
     public Set<Location> getLocationsDestination(){
     	// Classe estática que retorna os deltas
         Set<DeltaXY> deltaCollection = DeltaCollection.getDeltaCollection();
@@ -107,6 +118,13 @@ public class Location {
         return result;
     }
     
+    /**
+     * 
+     * Retorna a posição raiz
+     * 
+     * @param  node - Posição a ser analisada  
+     * @return - Retorna a raiz da hierarquia do nó passado no parâmetro.
+     */    
     private Location getRoot(Location node) {
     	Location parent = this.parent;
     	Location root	= this;
@@ -119,16 +137,33 @@ public class Location {
     	return root;
     }
     
+    /**
+     *  Verifica se essa posição, já foi adicionado na hierarquia
+     *  
+     * @param newNode - Posição a ser verificada
+     * @return Retorna - Verdadeiro se já foi adiciona e falso se ainda não foi adicionado.
+     */
     public boolean wayAlreadyAdded(Location newNode) {
     	Location root = this.getRoot(newNode);
     	
     	return this.wayAlreadyAddedInNode(root, newNode);
     }
     
+    /**
+     * Cria os filhos
+     */
     public void createNodes() {
     	this.nodes = new HashSet<>();
     }
     
+    /**
+     * 
+     * Verifica se uma posição já foi adicionado na hierarquia de outra posição
+     * 
+     * @param node - Posição que vai ter seus filhos comparados
+     * @param newNode - Posição a ser comparado com os filhos do primeiro parâmetro 
+     * @return Retorna - Verdadeiro se já foi adicionado naquela hierarquia e falso se não foi
+     *      */
     private boolean wayAlreadyAddedInNode(Location node, Location newNode) {
     	if (node.getNodes() == null) 
     		return node.equals(newNode);
