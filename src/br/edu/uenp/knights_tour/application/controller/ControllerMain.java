@@ -51,9 +51,12 @@ public class ControllerMain {
     		return;
     	
     	for (Location node : parent.getNodes()) {
+			this.view.paintDestinationLocationColor(node.toStringClear(), level);
+		}
+    	
+    	for (Location node : parent.getNodes()) {
     		Integer levelNodes = ++level;
 			this.printWays(node, levelNodes);
-			this.view.paintDestinationLocationColor(node.toStringClear(), level);
 		}
     }
     

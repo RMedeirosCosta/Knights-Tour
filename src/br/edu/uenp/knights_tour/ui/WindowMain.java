@@ -29,6 +29,7 @@ import br.edu.uenp.knights_tour.ui.events.EventsMain;
 import javax.swing.border.TitledBorder;
 import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class WindowMain extends javax.swing.JFrame implements ViewMain {
@@ -124,7 +125,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     private JPanel pnlPossibleDestinations;
     private JPanel pnlInitialLocation;
     private JPanel pnlDestinationsColor;
-    private JScrollPane scrDestinationsColor;
+    private JTextArea edtVisitedWays;
     private JPanel pnlTable;
     private JSeparator sepX;
     private JSeparator sepY;
@@ -849,7 +850,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         lblInitialColor.setForeground(Color.BLUE);
         
         pnlDestinationsColor = new JPanel();
-        scrDestinationsColor = new JScrollPane(pnlDestinationsColor, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//        scrDestinationsColor = new JScrollPane(pnlDestinationsColor, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         pnlDestinationsColor.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         pnlDestinationsColor.setBorder(new TitledBorder(null, "Cores de Destino", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         
@@ -891,9 +892,12 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         
         pnlPossibleDestinations.setLayout(gl_pnlPossibleDestinations);
         
-        scrDestinationsColor.setViewportView(pnlDestinationsColor);
+//        scrDestinationsColor.setViewportView(pnlDestinationsColor);
         
         lblPoweredBy.setText("Desenvolvido por Ricardo Medeiros - 626 e Lucas Mendes - 677. Universidade Estadual do Norte do Paraná - Campus Luiz Meneghel");
+        
+        JPanel pnlLogVisitedWays = new JPanel();
+        pnlLogVisitedWays.setBorder(new TitledBorder(null, "Log de Caminhos Percorridos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -911,44 +915,47 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         				.addComponent(lblY8, Alignment.TRAILING))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        					.addGroup(layout.createSequentialGroup()
-        						.addComponent(sepY, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-        						.addPreferredGap(ComponentPlacement.RELATED)
-        						.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
-        							.addGroup(layout.createSequentialGroup()
-        								.addComponent(sepX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(lblX))
-        							.addGroup(layout.createSequentialGroup()
-        								.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        								.addGap(14))))
-        					.addGroup(layout.createSequentialGroup()
-        						.addGap(45)
-        						.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        							.addGroup(layout.createSequentialGroup()
-        								.addGap(10)
-        								.addComponent(lblPoweredBy))
-        							.addGroup(layout.createSequentialGroup()
-        								.addComponent(lblX1)
-        								.addGap(58)
-        								.addComponent(lblX2)
-        								.addGap(59)
-        								.addComponent(lblX3)
-        								.addGap(59)
-        								.addComponent(lblX4)
-        								.addGap(57)
-        								.addComponent(lblX5)
-        								.addGap(61)
-        								.addComponent(lblX6)
-        								.addGap(57)
-        								.addComponent(lblX7)
-        								.addGap(57)
-        								.addComponent(lblX8)
-        								.addGap(71)
-        								.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)))))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createSequentialGroup()
+        							.addComponent(sepY, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+        								.addGroup(layout.createSequentialGroup()
+        									.addComponent(sepX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        									.addPreferredGap(ComponentPlacement.RELATED)
+        									.addComponent(lblX))
+        								.addGroup(layout.createSequentialGroup()
+        									.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        									.addGap(14))))
+        						.addGroup(layout.createSequentialGroup()
+        							.addGap(45)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(layout.createSequentialGroup()
+        									.addGap(10)
+        									.addComponent(lblPoweredBy))
+        								.addGroup(layout.createSequentialGroup()
+        									.addComponent(lblX1)
+        									.addGap(58)
+        									.addComponent(lblX2)
+        									.addGap(59)
+        									.addComponent(lblX3)
+        									.addGap(59)
+        									.addComponent(lblX4)
+        									.addGap(57)
+        									.addComponent(lblX5)
+        									.addGap(61)
+        									.addComponent(lblX6)
+        									.addGap(57)
+        									.addComponent(lblX7)
+        									.addGap(57)
+        									.addComponent(lblX8)
+        									.addGap(71)
+        									.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)))))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(pnlLogVisitedWays, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
         				.addComponent(lblY))
-        			.addContainerGap(215, Short.MAX_VALUE))
+        			.addContainerGap())
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.TRAILING)
@@ -995,12 +1002,22 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         			.addGap(14))
         		.addGroup(layout.createSequentialGroup()
-        			.addGap(41)
-        			.addComponent(pnlPossibleDestinations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+        					.addGap(49)
+        					.addComponent(pnlLogVisitedWays, GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(41)
+        					.addComponent(pnlPossibleDestinations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         			.addPreferredGap(ComponentPlacement.UNRELATED)
         			.addComponent(lblPoweredBy)
         			.addContainerGap())
         );
+        pnlLogVisitedWays.setLayout(null);
+        
+        edtVisitedWays = new JTextArea();
+        edtVisitedWays.setBounds(10, 25, 179, 449);
+        pnlLogVisitedWays.add(edtVisitedWays);
         getContentPane().setLayout(layout);
 
         pack();
@@ -1036,6 +1053,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 	   this.resetAllColors(this.getContentPane());
 	   this.pnlDestinationsColor.removeAll();
 	   this.pnlDestinationsColor.revalidate();
+	   this.pnlDestinationsColor.repaint();
 	   this.levelsAlreadyPainted.clear();
    }
    
@@ -1088,7 +1106,8 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         	lblDestinationColor.setForeground(destinationColor); 
         	this.pnlDestinationsColor.add(lblDestinationColor);
         	this.pnlDestinationsColor.revalidate();
-        	this.levelsAlreadyPainted.put(level, destinationColor);        	
+        	this.pnlDestinationsColor.repaint();
+        	this.levelsAlreadyPainted.put(level, destinationColor);
     	} else {
     		destinationColor = this.levelsAlreadyPainted.get(level);
     	}
@@ -1124,5 +1143,17 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 	public void setInitialLocation(DTOLocation initialLocation) {
 		this.edtCoordinateX.setValue(initialLocation.getX());
 		this.edtCoordinateY.setValue(initialLocation.getY());
+	}
+
+	@Override
+	public void printDestination(String coordinateXY) {
+		//this.edt
+		
+	}
+
+	@Override
+	public void printVisitedWay(String coordinateXY) {
+		// TODO Auto-generated method stub
+		
 	}
 }

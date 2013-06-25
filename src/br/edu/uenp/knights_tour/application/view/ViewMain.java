@@ -8,7 +8,9 @@ public interface ViewMain {
     public void changeInitialLabelColor();
     public void changeInitialLocationColor(String coordinateXY);
     public DTOLocation getInitialLocation();
-    public void paintDestinationLocationColor(String coordinateXY, Integer level);    
+    public void paintDestinationLocationColor(String coordinateXY, Integer level);
+    public void printDestination(String coordinateXY);
+    public void printVisitedWay(String coordinateXY);
     public void setInitialLocation(DTOLocation initialLocation);
     public boolean requestConfirmation(String mensagem);
     public void resetAllColors();

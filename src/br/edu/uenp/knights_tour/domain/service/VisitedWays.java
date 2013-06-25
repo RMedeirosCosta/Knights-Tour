@@ -33,11 +33,13 @@ public class VisitedWays {
     		try {    			
     			node = new Location(destination.getX(), destination.getY(), parent);
     			parent.getNodes().add(node);
-    			this.buildHierarchy(node);
-    			
     		} catch(Exception ex) {
     			throw new InvalidParameterException(ex.getMessage());
     		}
-		}    	
+		}
+    	
+    	for (Location node : parent.getNodes()) {
+			this.buildHierarchy(node);
+		}
     }
 }
