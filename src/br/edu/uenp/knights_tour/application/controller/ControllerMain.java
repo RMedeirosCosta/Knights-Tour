@@ -60,6 +60,7 @@ public class ControllerMain {
             try {
             	service.buildHierarchy(initialLocation);
             } catch(DestinationLocationFound ex) {
+            	this.view.changeFinalLocationColor(ex.getDestination().toStringClear());
             	this.printWays(ex.getDestination(), EMPTY_LEVEL);
             	return;
             }

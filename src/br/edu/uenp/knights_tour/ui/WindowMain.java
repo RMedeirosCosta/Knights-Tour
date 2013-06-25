@@ -319,24 +319,30 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         lblFinalColor.setToolTipText("Clique aqui para alterar a cor da posi\u00E7\u00E3o final");
         lblFinalColor.setForeground(new Color(0, 128, 0));
         
+        JLabel lblVisitedWaysColor = new JLabel("Cor dos Caminhos Percorridos");
+        lblVisitedWaysColor.setToolTipText("Clique aqui para alterar a cor da posi\u00E7\u00E3o final");
+        lblVisitedWaysColor.setForeground(new Color(255, 140, 0));
+        
         javax.swing.GroupLayout gl_pnlPossibleDestinations = new javax.swing.GroupLayout(pnlPossibleDestinations);
         gl_pnlPossibleDestinations.setHorizontalGroup(
         	gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
         			.addContainerGap()
-        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING, false)
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING)
         				.addComponent(pnlDestinationsColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(lblFinalColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(lblInitialColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(Alignment.LEADING, gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING, false)
+        					.addComponent(lblFinalColor, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(lblInitialColor, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
+        						.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addComponent(pnlFinalLocation, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)))
+        				.addComponent(lblVisitedWaysColor, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
         				.addGroup(Alignment.LEADING, gl_pnlPossibleDestinations.createSequentialGroup()
-        					.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(pnlFinalLocation, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
-        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
         					.addComponent(btnClear)
-        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
         					.addComponent(btnExecute)))
-        			.addContainerGap(38, Short.MAX_VALUE))
+        			.addContainerGap())
         );
         gl_pnlPossibleDestinations.setVerticalGroup(
         	gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
@@ -349,12 +355,14 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         			.addComponent(lblInitialColor)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(lblFinalColor)
-        			.addGap(18)
-        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnExecute)
-        				.addComponent(btnClear))
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+        			.addComponent(lblVisitedWaysColor)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(btnClear)
+        				.addComponent(btnExecute))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
         			.addContainerGap())
         );
         pnlFinalLocation.setLayout(new GridLayout(0, 2, 0, 0));
@@ -457,11 +465,10 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         						.addGap(11))
         					.addGroup(groupLayout.createSequentialGroup()
         						.addGap(6)
-        						.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, 508, Short.MAX_VALUE)
-        						.addPreferredGap(ComponentPlacement.RELATED)))
+        						.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, 508, Short.MAX_VALUE)))
         				.addPreferredGap(ComponentPlacement.RELATED)
-        				.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
-        				.addGap(47)))
+        				.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+        				.addGap(33)))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
