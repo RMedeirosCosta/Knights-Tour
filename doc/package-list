@@ -1,0 +1,12 @@
+br.edu.uenp.knights_tour
+br.edu.uenp.knights_tour.application.controller
+br.edu.uenp.knights_tour.application.dto
+br.edu.uenp.knights_tour.application.kind
+br.edu.uenp.knights_tour.application.view
+br.edu.uenp.knights_tour.domain.entity
+br.edu.uenp.knights_tour.domain.exception
+br.edu.uenp.knights_tour.domain.service
+br.edu.uenp.knights_tour.domain.value_object
+br.edu.uenp.knights_tour.entity
+br.edu.uenp.knights_tour.ui
+br.edu.uenp.knights_tour.ui.events

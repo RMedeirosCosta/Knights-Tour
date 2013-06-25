@@ -104,6 +104,7 @@ public class ControllerMain {
             
             // E chamo o método que imprime na tela recursivamente todos os caminhos possíveis
             this.printDestination(initialLocation, 1);
+            this.currentLocation = EnumLocationSelection.NONE;
             
         } catch (LocationOffTheBoardException ex) {
             this.view.showError(ex.getMessage());
