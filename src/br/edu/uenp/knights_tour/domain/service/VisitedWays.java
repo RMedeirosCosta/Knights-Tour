@@ -8,6 +8,12 @@ import br.edu.uenp.knights_tour.domain.entity.Location;
 
 public class VisitedWays {
 	
+	private Location destination;	
+	
+	public void setDestination(Location destination) {
+		this.destination = destination;
+	}
+
 	private Set<Location> getNodesNotAdded(Location parent) {
     	Set<Location> nodes = new HashSet<>();
     	

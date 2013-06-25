@@ -54,6 +54,19 @@ public class EventsMain {
 		}
 	}
 	
+	public static class ChangeFinalColorMouseClicked extends MouseAdapter {
+		private ControllerMain controller;
+		
+		public ChangeFinalColorMouseClicked(ControllerMain controller) {
+			this.controller = controller;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			this.controller.changeFinalColor();
+		}
+	}
+	
 	public static class LocationActionPerformed implements ActionListener {
 		private ControllerMain controller;
 		
@@ -65,7 +78,7 @@ public class EventsMain {
 		public void actionPerformed(ActionEvent e) {
 			JButton btn = (JButton) e.getSource();
 			
-			this.controller.setInitialLocation(btn.getText());
+			this.controller.setLocation(btn.getText());
 		}
 	}
 	

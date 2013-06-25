@@ -35,6 +35,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.KeyListener;
+import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.SpinnerModel;
 
 @SuppressWarnings("serial")
 public class WindowMain extends javax.swing.JFrame implements ViewMain {
@@ -104,10 +107,10 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     private JButton btnLocationX8Y6;
     private JButton btnLocationX8Y7;
     private JButton btnLocationX8Y8;
-    private JSpinner edtCoordinateX;
-    private JSpinner edtCoordinateY;
-    private JLabel lblCoordinateX;
-    private JLabel lblCoordinateY;
+    private JSpinner edtInitialCoordinateX;
+    private JSpinner edtInitialCoordinateY;
+    private JLabel lblInitialCoordinateX;
+    private JLabel lblInitialCoordinateY;
     private JLabel lblPoweredBy;
     private JLabel lblX;
     private JLabel lblX1;
@@ -128,7 +131,6 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     private JLabel lblY7;
     private JLabel lblY8;
     private JPanel pnlPossibleDestinations;
-    private JPanel pnlInitialLocation;
     private JPanel pnlDestinationsColor;
     private JPanel pnlDestinationsColorWithScroll;
     private JPanel pnlTable;
@@ -143,6 +145,13 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     private Map<String, Color> colorStorage;
     private Map<Integer, Color> levelsAlreadyPainted;
     private JPanel pnlLogVisitedWays;
+    private JPanel pnlInitialLocation;
+    private JLabel lblFinalCoordinateX;
+    private JPanel pnlFinalLocation;
+    private JLabel lblFinalCoordinateY;
+    private JSpinner edtFinalCoordinateX;
+    private JSpinner edtFinalCoordinateY;
+    private JLabel lblFinalColor;
     
     public WindowMain() {
     	setResizable(false);
@@ -165,134 +174,10 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     private void initComponents() {
         pnlTable = new JPanel();
         pnlTable.setToolTipText("Clique em uma posi\u00E7\u00E3o para selecionar as coordenadas iniciais");
-        btnLocationX1Y1 = new JButton();
-        btnLocationX1Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX2Y1 = new JButton();
-        btnLocationX2Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
         btnLocationX3Y1 = new JButton();
         btnLocationX3Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
         btnLocationX4Y1 = new JButton();
         btnLocationX4Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX5Y1 = new JButton();
-        btnLocationX5Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX6Y1 = new JButton();
-        btnLocationX6Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX7Y1 = new JButton();
-        btnLocationX7Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX8Y1 = new JButton();
-        btnLocationX8Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX1Y2 = new JButton();
-        btnLocationX1Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX2Y2 = new JButton();
-        btnLocationX2Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX3Y2 = new JButton();
-        btnLocationX3Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX4Y2 = new JButton();
-        btnLocationX4Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX5Y2 = new JButton();
-        btnLocationX5Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX6Y2 = new JButton();
-        btnLocationX6Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX7Y2 = new JButton();
-        btnLocationX7Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX8Y2 = new JButton();
-        btnLocationX8Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX1Y3 = new JButton();
-        btnLocationX1Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX2Y3 = new JButton();
-        btnLocationX2Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX3Y3 = new JButton();
-        btnLocationX3Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX4Y3 = new JButton();
-        btnLocationX4Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX5Y3 = new JButton();
-        btnLocationX5Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX6Y3 = new JButton();
-        btnLocationX6Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX7Y3 = new JButton();
-        btnLocationX7Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX8Y3 = new JButton();
-        btnLocationX8Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX1Y4 = new JButton();
-        btnLocationX1Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX2Y4 = new JButton();
-        btnLocationX2Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX3Y4 = new JButton();
-        btnLocationX3Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX4Y4 = new JButton();
-        btnLocationX4Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX5Y4 = new JButton();
-        btnLocationX5Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX6Y4 = new JButton();
-        btnLocationX6Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX7Y4 = new JButton();
-        btnLocationX7Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX8Y4 = new JButton();
-        btnLocationX8Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX1Y5 = new JButton();
-        btnLocationX1Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX2Y5 = new JButton();
-        btnLocationX2Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX3Y5 = new JButton();
-        btnLocationX3Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX4Y5 = new JButton();
-        btnLocationX4Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX5Y5 = new JButton();
-        btnLocationX5Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX6Y5 = new JButton();
-        btnLocationX6Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX7Y5 = new JButton();
-        btnLocationX7Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX8Y5 = new JButton();
-        btnLocationX8Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX1Y6 = new JButton();
-        btnLocationX1Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX2Y6 = new JButton();
-        btnLocationX2Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX3Y6 = new JButton();
-        btnLocationX3Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX4Y6 = new JButton();
-        btnLocationX4Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX5Y6 = new JButton();
-        btnLocationX5Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX6Y6 = new JButton();
-        btnLocationX6Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX7Y6 = new JButton();
-        btnLocationX7Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX8Y6 = new JButton();
-        btnLocationX8Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX1Y7 = new JButton();
-        btnLocationX1Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX2Y7 = new JButton();
-        btnLocationX2Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX3Y7 = new JButton();
-        btnLocationX3Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX4Y7 = new JButton();
-        btnLocationX4Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX5Y7 = new JButton();
-        btnLocationX5Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX6Y7 = new JButton();
-        btnLocationX6Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX7Y7 = new JButton();
-        btnLocationX7Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX8Y7 = new JButton();
-        btnLocationX8Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX1Y8 = new JButton();
-        btnLocationX1Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX2Y8 = new JButton();
-        btnLocationX2Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX3Y = new JButton();
-        btnLocationX3Y.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX4Y8 = new JButton();
-        btnLocationX4Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX5Y8 = new JButton();
-        btnLocationX5Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX6Y8 = new JButton();
-        btnLocationX6Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX7Y8 = new JButton();
-        btnLocationX7Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
-        btnLocationX8Y8 = new JButton();
-        btnLocationX8Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
         
         sepX = new JSeparator();
         lblX1 = new JLabel();
@@ -334,12 +219,12 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         pnlPossibleDestinations = new JPanel();
         pnlInitialLocation = new JPanel();
         pnlInitialLocation.setToolTipText("Clique nos campos de texto para alterar as coordenadas iniciais ou clique em uma posi\u00E7\u00E3o do tabuleiro");
-        lblCoordinateX = new JLabel();
-        lblCoordinateY = new JLabel();
-        edtCoordinateX = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
-        edtCoordinateX.setToolTipText("Selecione aqui a coordenada inical X");
-        edtCoordinateY = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));        
-        edtCoordinateY.setToolTipText("Selecione aqui a coordenada inical X");
+        lblInitialCoordinateX = new JLabel();
+        lblInitialCoordinateY = new JLabel();
+        edtInitialCoordinateX = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
+        edtInitialCoordinateX.setToolTipText("Selecione aqui a coordenada inical X");
+        edtInitialCoordinateY = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));        
+        edtInitialCoordinateY.setToolTipText("Selecione aqui a coordenada inical X");
         btnClear = new JButton();
         btnClear.setToolTipText("Clique aqui para limpar uma opera\u00E7\u00E3o rec\u00E9m realizada");
         btnExecute = new JButton();
@@ -352,15 +237,6 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         pnlTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlTable.setEnabled(false);
 
-        btnLocationX1Y1.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX1Y1.setText("x1 y1");
-        btnLocationX1Y1.setFocusable(false);
-        btnLocationX1Y1.setSelected(true);
-
-        btnLocationX2Y1.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX2Y1.setText("x2 y1");
-        btnLocationX2Y1.setFocusable(false);
-
         btnLocationX3Y1.setBackground(new java.awt.Color(102, 102, 102));
         btnLocationX3Y1.setText("x3 y1");
         btnLocationX3Y1.setFocusable(false);
@@ -369,495 +245,6 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         btnLocationX4Y1.setBackground(new java.awt.Color(255, 255, 255));
         btnLocationX4Y1.setText("x4 y1");
         btnLocationX4Y1.setFocusable(false);
-
-        btnLocationX5Y1.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX5Y1.setText("x5 y1");
-        btnLocationX5Y1.setFocusable(false);
-        btnLocationX5Y1.setSelected(true);
-
-        btnLocationX6Y1.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX6Y1.setText("x6 y1");
-        btnLocationX6Y1.setFocusable(false);
-
-        btnLocationX7Y1.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX7Y1.setText("x7 y1");
-        btnLocationX7Y1.setFocusable(false);
-        btnLocationX7Y1.setSelected(true);
-
-        btnLocationX8Y1.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX8Y1.setText("x8 y1");
-        btnLocationX8Y1.setFocusable(false);
-
-        btnLocationX1Y2.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX1Y2.setText("x1 y2");
-        btnLocationX1Y2.setFocusable(false);
-
-        btnLocationX2Y2.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX2Y2.setText("x2 y2");
-        btnLocationX2Y2.setFocusable(false);
-        btnLocationX2Y2.setSelected(true);
-
-        btnLocationX3Y2.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX3Y2.setText("x3 y2");
-        btnLocationX3Y2.setFocusable(false);
-
-        btnLocationX4Y2.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX4Y2.setText("x4 y2");
-        btnLocationX4Y2.setFocusable(false);
-        btnLocationX4Y2.setSelected(true);
-
-        btnLocationX5Y2.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX5Y2.setText("x5 y2");
-        btnLocationX5Y2.setFocusable(false);
-
-        btnLocationX6Y2.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX6Y2.setText("x6 y2");
-        btnLocationX6Y2.setFocusable(false);
-        btnLocationX6Y2.setSelected(true);
-
-        btnLocationX7Y2.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX7Y2.setText("x7 y2");
-        btnLocationX7Y2.setFocusable(false);
-
-        btnLocationX8Y2.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX8Y2.setText("x8 y2");
-        btnLocationX8Y2.setFocusable(false);
-        btnLocationX8Y2.setSelected(true);
-
-        btnLocationX1Y3.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX1Y3.setText("x1 y3");
-        btnLocationX1Y3.setFocusable(false);
-        btnLocationX1Y3.setSelected(true);
-
-        btnLocationX2Y3.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX2Y3.setText("x2 y3");
-        btnLocationX2Y3.setFocusable(false);
-
-        btnLocationX3Y3.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX3Y3.setText("x3 y3");
-        btnLocationX3Y3.setFocusable(false);
-        btnLocationX3Y3.setSelected(true);
-
-        btnLocationX4Y3.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX4Y3.setText("x4 y3");
-        btnLocationX4Y3.setFocusable(false);
-
-        btnLocationX5Y3.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX5Y3.setText("x5 y3");
-        btnLocationX5Y3.setFocusable(false);
-        btnLocationX5Y3.setSelected(true);
-
-        btnLocationX6Y3.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX6Y3.setText("x6 y3");
-        btnLocationX6Y3.setFocusable(false);
-
-        btnLocationX7Y3.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX7Y3.setText("x7 y3");
-        btnLocationX7Y3.setFocusable(false);
-        btnLocationX7Y3.setSelected(true);
-
-        btnLocationX8Y3.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX8Y3.setText("x8 y3");
-        btnLocationX8Y3.setFocusable(false);
-
-        btnLocationX1Y4.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX1Y4.setText("x1 y4");
-        btnLocationX1Y4.setFocusable(false);
-
-        btnLocationX2Y4.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX2Y4.setText("x2 y4");
-        btnLocationX2Y4.setFocusable(false);
-        btnLocationX2Y4.setSelected(true);
-
-        btnLocationX3Y4.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX3Y4.setText("x3 y4");
-        btnLocationX3Y4.setFocusable(false);
-
-        btnLocationX4Y4.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX4Y4.setText("x4 y4");
-        btnLocationX4Y4.setFocusable(false);
-        btnLocationX4Y4.setSelected(true);
-
-        btnLocationX5Y4.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX5Y4.setText("x5 y4");
-        btnLocationX5Y4.setFocusable(false);
-
-        btnLocationX6Y4.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX6Y4.setText("x6 y4");
-        btnLocationX6Y4.setFocusable(false);
-        btnLocationX6Y4.setSelected(true);
-
-        btnLocationX7Y4.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX7Y4.setText("x7 y4");
-        btnLocationX7Y4.setFocusable(false);
-
-        btnLocationX8Y4.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX8Y4.setText("x8 y4");
-        btnLocationX8Y4.setFocusable(false);
-        btnLocationX8Y4.setSelected(true);
-
-        btnLocationX1Y5.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX1Y5.setText("x1 y5");
-        btnLocationX1Y5.setFocusable(false);
-        btnLocationX1Y5.setSelected(true);
-
-        btnLocationX2Y5.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX2Y5.setText("x2 y5");
-        btnLocationX2Y5.setFocusable(false);
-
-        btnLocationX3Y5.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX3Y5.setText("x3 y5");
-        btnLocationX3Y5.setFocusable(false);
-        btnLocationX3Y5.setSelected(true);
-
-        btnLocationX4Y5.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX4Y5.setText("x4 y5");
-        btnLocationX4Y5.setFocusable(false);
-
-        btnLocationX5Y5.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX5Y5.setText("x5 y5");
-        btnLocationX5Y5.setFocusable(false);
-        btnLocationX5Y5.setSelected(true);
-
-        btnLocationX6Y5.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX6Y5.setText("x6 y5");
-        btnLocationX6Y5.setFocusable(false);
-
-        btnLocationX7Y5.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX7Y5.setText("x7 y5");
-        btnLocationX7Y5.setFocusable(false);
-        btnLocationX7Y5.setSelected(true);
-
-        btnLocationX8Y5.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX8Y5.setText("x8 y5");
-        btnLocationX8Y5.setFocusable(false);
-
-        btnLocationX1Y6.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX1Y6.setText("x1 y6");
-        btnLocationX1Y6.setFocusable(false);
-
-        btnLocationX2Y6.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX2Y6.setText("x2 y6");
-        btnLocationX2Y6.setFocusable(false);
-        btnLocationX2Y6.setSelected(true);
-
-        btnLocationX3Y6.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX3Y6.setText("x3 y6");
-        btnLocationX3Y6.setFocusable(false);
-
-        btnLocationX4Y6.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX4Y6.setText("x4 y6");
-        btnLocationX4Y6.setFocusable(false);
-        btnLocationX4Y6.setSelected(true);
-
-        btnLocationX5Y6.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX5Y6.setText("x5 y6");
-        btnLocationX5Y6.setFocusable(false);
-
-        btnLocationX6Y6.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX6Y6.setText("x6 y6");
-        btnLocationX6Y6.setFocusable(false);
-        btnLocationX6Y6.setSelected(true);
-
-        btnLocationX7Y6.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX7Y6.setText("x7 y6");
-        btnLocationX7Y6.setFocusable(false);
-
-        btnLocationX8Y6.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX8Y6.setText("x8 y6");
-        btnLocationX8Y6.setFocusable(false);
-        btnLocationX8Y6.setSelected(true);
-
-        btnLocationX1Y7.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX1Y7.setText("x1 y7");
-        btnLocationX1Y7.setFocusable(false);
-        btnLocationX1Y7.setSelected(true);
-
-        btnLocationX2Y7.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX2Y7.setText("x2 y7");
-        btnLocationX2Y7.setFocusable(false);
-
-        btnLocationX3Y7.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX3Y7.setText("x3 y7");
-        btnLocationX3Y7.setFocusable(false);
-        btnLocationX3Y7.setSelected(true);
-
-        btnLocationX4Y7.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX4Y7.setText("x4 y7");
-        btnLocationX4Y7.setFocusable(false);
-
-        btnLocationX5Y7.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX5Y7.setText("x5 y7");
-        btnLocationX5Y7.setFocusable(false);
-        btnLocationX5Y7.setSelected(true);
-
-        btnLocationX6Y7.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX6Y7.setText("x6 y7");
-        btnLocationX6Y7.setFocusable(false);
-
-        btnLocationX7Y7.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX7Y7.setText("x7 y7");
-        btnLocationX7Y7.setFocusable(false);
-        btnLocationX7Y7.setSelected(true);
-
-        btnLocationX8Y7.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX8Y7.setText("x8 y7");
-        btnLocationX8Y7.setFocusable(false);
-
-        btnLocationX1Y8.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX1Y8.setText("x1 y8");
-        btnLocationX1Y8.setFocusable(false);
-        btnLocationX1Y8.setName(""); // NOI18N
-
-        btnLocationX2Y8.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX2Y8.setText("x2 y8");
-        btnLocationX2Y8.setFocusable(false);
-        btnLocationX2Y8.setSelected(true);
-
-        btnLocationX3Y.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX3Y.setText("x3 y8");
-        btnLocationX3Y.setFocusable(false);
-
-        btnLocationX4Y8.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX4Y8.setText("x4 y8");
-        btnLocationX4Y8.setFocusable(false);
-        btnLocationX4Y8.setSelected(true);
-
-        btnLocationX5Y8.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX5Y8.setText("x5 y8");
-        btnLocationX5Y8.setFocusable(false);
-
-        btnLocationX6Y8.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX6Y8.setText("x6 y8");
-        btnLocationX6Y8.setFocusable(false);
-        btnLocationX6Y8.setSelected(true);
-
-        btnLocationX7Y8.setBackground(new java.awt.Color(255, 255, 255));
-        btnLocationX7Y8.setText("x7 y8");
-        btnLocationX7Y8.setFocusable(false);
-
-        btnLocationX8Y8.setBackground(new java.awt.Color(102, 102, 102));
-        btnLocationX8Y8.setText("x8 y8");
-        btnLocationX8Y8.setFocusable(false);
-        btnLocationX8Y8.setSelected(true);
-
-        javax.swing.GroupLayout gl_pnlTable = new javax.swing.GroupLayout(pnlTable);
-        pnlTable.setLayout(gl_pnlTable);
-        gl_pnlTable.setHorizontalGroup(
-            gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gl_pnlTable.createSequentialGroup()
-                .addComponent(btnLocationX1Y8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX2Y8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX3Y)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX4Y8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX5Y8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX6Y8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX7Y8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX8Y8))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gl_pnlTable.createSequentialGroup()
-                .addComponent(btnLocationX1Y7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX2Y7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX3Y7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX4Y7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX5Y7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX6Y7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX7Y7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX8Y7))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gl_pnlTable.createSequentialGroup()
-                .addComponent(btnLocationX1Y5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX2Y5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX3Y5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX4Y5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX5Y5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX6Y5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX7Y5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX8Y5))
-            .addGroup(gl_pnlTable.createSequentialGroup()
-                .addComponent(btnLocationX1Y6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX2Y6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX3Y6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX4Y6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX5Y6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX6Y6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX7Y6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX8Y6))
-            .addGroup(gl_pnlTable.createSequentialGroup()
-                .addComponent(btnLocationX1Y4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX2Y4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX3Y4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX4Y4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX5Y4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX6Y4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX7Y4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX8Y4))
-            .addGroup(gl_pnlTable.createSequentialGroup()
-                .addComponent(btnLocationX1Y3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX2Y3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX3Y3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX4Y3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX5Y3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX6Y3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX7Y3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX8Y3))
-            .addGroup(gl_pnlTable.createSequentialGroup()
-                .addComponent(btnLocationX1Y1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX2Y1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX3Y1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX4Y1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX5Y1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX6Y1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX7Y1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX8Y1))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gl_pnlTable.createSequentialGroup()
-                .addComponent(btnLocationX1Y2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX2Y2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX3Y2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX4Y2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX5Y2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX6Y2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX7Y2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocationX8Y2))
-        );
-        gl_pnlTable.setVerticalGroup(
-            gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gl_pnlTable.createSequentialGroup()
-                .addGroup(gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLocationX1Y8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX2Y8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX3Y, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX5Y8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX4Y8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX6Y8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX7Y8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX8Y8, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLocationX1Y7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX2Y7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX3Y7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX5Y7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX4Y7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX6Y7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX7Y7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX8Y7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLocationX1Y6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX2Y6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX3Y6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX5Y6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX4Y6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX6Y6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX7Y6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX8Y6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLocationX1Y5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX2Y5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX3Y5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX5Y5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX4Y5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX6Y5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX7Y5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX8Y5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLocationX1Y4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX2Y4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX3Y4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX5Y4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX4Y4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX6Y4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX7Y4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX8Y4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLocationX1Y3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX2Y3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX3Y3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX5Y3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX4Y3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX6Y3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX7Y3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX8Y3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLocationX1Y2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX2Y2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX3Y2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX5Y2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX4Y2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX6Y2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX7Y2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX8Y2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_pnlTable.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLocationX1Y1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX2Y1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX3Y1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX5Y1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX4Y1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX6Y1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX7Y1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLocationX8Y1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
-        );
 
         lblX1.setText("1");
 
@@ -904,39 +291,9 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 
         pnlInitialLocation.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Posição Inicial"));
 
-        lblCoordinateX.setText("X: ");
+        lblInitialCoordinateX.setText("X: ");
 
-        lblCoordinateY.setText("X: ");
-
-        javax.swing.GroupLayout gl_pnlInitialLocation = new javax.swing.GroupLayout(pnlInitialLocation);
-        pnlInitialLocation.setLayout(gl_pnlInitialLocation);
-        gl_pnlInitialLocation.setHorizontalGroup(
-            gl_pnlInitialLocation.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gl_pnlInitialLocation.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(gl_pnlInitialLocation.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(gl_pnlInitialLocation.createSequentialGroup()
-                        .addComponent(lblCoordinateX)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtCoordinateX, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
-                    .addGroup(gl_pnlInitialLocation.createSequentialGroup()
-                        .addComponent(lblCoordinateY)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtCoordinateY)))
-                .addContainerGap())
-        );
-        gl_pnlInitialLocation.setVerticalGroup(
-            gl_pnlInitialLocation.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gl_pnlInitialLocation.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(gl_pnlInitialLocation.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCoordinateX)
-                    .addComponent(edtCoordinateX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_pnlInitialLocation.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCoordinateY)
-                    .addComponent(edtCoordinateY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        lblInitialCoordinateY.setText("Y: ");
 
         btnClear.setText("Limpar");
         btnExecute.setText("Executar");
@@ -955,40 +312,73 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         pnlDestinationsColor.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         pnlDestinationsColor.setBorder(new TitledBorder(null, "Cores de Destino", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         
+        pnlFinalLocation = new JPanel();
+        pnlFinalLocation.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Posição Final"));
+        
+        lblFinalColor = new JLabel("Cor da Posi\u00E7\u00E3o Final");
+        lblFinalColor.setToolTipText("Clique aqui para alterar a cor da posi\u00E7\u00E3o final");
+        lblFinalColor.setForeground(new Color(0, 128, 0));
+        
         javax.swing.GroupLayout gl_pnlPossibleDestinations = new javax.swing.GroupLayout(pnlPossibleDestinations);
         gl_pnlPossibleDestinations.setHorizontalGroup(
         	gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
         			.addContainerGap()
-        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
-        				.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
-        					.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING, false)
+        				.addComponent(pnlDestinationsColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(lblFinalColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(lblInitialColor, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(Alignment.LEADING, gl_pnlPossibleDestinations.createSequentialGroup()
+        					.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
         					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING, false)
-        						.addComponent(btnClear, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        						.addComponent(btnExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        				.addComponent(lblInitialColor))
-        			.addContainerGap())
+        					.addComponent(pnlFinalLocation, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
+        					.addComponent(btnClear)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnExecute)))
+        			.addContainerGap(38, Short.MAX_VALUE))
         );
         gl_pnlPossibleDestinations.setVerticalGroup(
         	gl_pnlPossibleDestinations.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
-        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.TRAILING, false)
-        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(gl_pnlPossibleDestinations.createSequentialGroup()
-        					.addGap(20)
-        					.addComponent(btnClear)
-        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addComponent(btnExecute)))
+        			.addContainerGap()
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(pnlInitialLocation, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(pnlFinalLocation, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(lblInitialColor)
-        			.addGap(10)
-        			.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(lblFinalColor)
+        			.addGap(18)
+        			.addGroup(gl_pnlPossibleDestinations.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(btnExecute)
+        				.addComponent(btnClear))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(pnlDestinationsColor, GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
         			.addContainerGap())
         );
+        pnlFinalLocation.setLayout(new GridLayout(0, 2, 0, 0));
+        
+        lblFinalCoordinateX = new JLabel();
+        lblFinalCoordinateX.setText("X: ");
+        pnlFinalLocation.add(lblFinalCoordinateX);
+        
+        edtFinalCoordinateX = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
+        edtFinalCoordinateX.setToolTipText("Selecione aqui a coordenada inical X");
+        pnlFinalLocation.add(edtFinalCoordinateX);
+        
+        lblFinalCoordinateY = new JLabel();
+        lblFinalCoordinateY.setText("Y: ");
+        pnlFinalLocation.add(lblFinalCoordinateY);
+        
+        edtFinalCoordinateY = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
+        edtFinalCoordinateY.setToolTipText("Selecione aqui a coordenada inical X");
+        pnlFinalLocation.add(edtFinalCoordinateY);
+        pnlInitialLocation.setLayout(new GridLayout(0, 2, 0, 0));
+        pnlInitialLocation.add(lblInitialCoordinateX);
+        pnlInitialLocation.add(edtInitialCoordinateX);
+        pnlInitialLocation.add(lblInitialCoordinateY);
+        pnlInitialLocation.add(edtInitialCoordinateY);
         pnlDestinationsColor.setLayout(new GridLayout(0, 1));
         
         pnlPossibleDestinations.setLayout(gl_pnlPossibleDestinations);
@@ -1042,11 +432,9 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         					.addComponent(lblY1))
         				.addGap(6)
         				.addComponent(sepY, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-        				.addGap(6)
         				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        					.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         					.addGroup(groupLayout.createSequentialGroup()
-        						.addGap(29)
+        						.addGap(35)
         						.addComponent(lblX1)
         						.addGap(58)
         						.addComponent(lblX2)
@@ -1061,12 +449,19 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         						.addGap(57)
         						.addComponent(lblX7)
         						.addGap(57)
-        						.addComponent(lblX8)))
-        				.addComponent(sepX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        				.addGap(6)
-        				.addComponent(lblX)
-        				.addGap(11)
-        				.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        						.addComponent(lblX8)
+        						.addGap(66)
+        						.addComponent(sepX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addGap(6)
+        						.addComponent(lblX)
+        						.addGap(11))
+        					.addGroup(groupLayout.createSequentialGroup()
+        						.addGap(6)
+        						.addComponent(pnlTable, GroupLayout.PREFERRED_SIZE, 508, Short.MAX_VALUE)
+        						.addPreferredGap(ComponentPlacement.RELATED)))
+        				.addPreferredGap(ComponentPlacement.RELATED)
+        				.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
+        				.addGap(47)))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -1110,30 +505,499 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
         						.addComponent(lblX7)
         						.addComponent(lblX8)))
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(472)
+        					.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addGap(5)
         					.addComponent(sepX, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         				.addGroup(groupLayout.createSequentialGroup()
         					.addGap(452)
-        					.addComponent(lblX))
-        				.addComponent(pnlPossibleDestinations, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addComponent(lblX)))
         			.addGap(21)
         			.addComponent(pnlLogVisitedWays, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(lblPoweredBy))
         );
+        pnlTable.setLayout(new GridLayout(8, 8, 0, 0));
+        btnLocationX1Y8 = new JButton();
+        btnLocationX1Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX1Y8.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX1Y8.setText("x1 y8");
+                btnLocationX1Y8.setFocusable(false);
+                btnLocationX1Y8.setName(""); // NOI18N
+                pnlTable.add(btnLocationX1Y8);
+        btnLocationX2Y8 = new JButton();
+        btnLocationX2Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX2Y8.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX2Y8.setText("x2 y8");
+                btnLocationX2Y8.setFocusable(false);
+                btnLocationX2Y8.setSelected(true);
+                pnlTable.add(btnLocationX2Y8);
+        btnLocationX3Y = new JButton();
+        btnLocationX3Y.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX3Y.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX3Y.setText("x3 y8");
+                btnLocationX3Y.setFocusable(false);
+                pnlTable.add(btnLocationX3Y);
+        btnLocationX4Y8 = new JButton();
+        btnLocationX4Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX4Y8.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX4Y8.setText("x4 y8");
+                btnLocationX4Y8.setFocusable(false);
+                btnLocationX4Y8.setSelected(true);
+                pnlTable.add(btnLocationX4Y8);
+        btnLocationX5Y8 = new JButton();
+        btnLocationX5Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX5Y8.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX5Y8.setText("x5 y8");
+                btnLocationX5Y8.setFocusable(false);
+                pnlTable.add(btnLocationX5Y8);
+        btnLocationX6Y8 = new JButton();
+        btnLocationX6Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX6Y8.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX6Y8.setText("x6 y8");
+                btnLocationX6Y8.setFocusable(false);
+                btnLocationX6Y8.setSelected(true);
+                pnlTable.add(btnLocationX6Y8);
+        btnLocationX7Y8 = new JButton();
+        btnLocationX7Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX7Y8.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX7Y8.setText("x7 y8");
+                btnLocationX7Y8.setFocusable(false);
+                pnlTable.add(btnLocationX7Y8);
+        btnLocationX8Y8 = new JButton();
+        btnLocationX8Y8.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX8Y8.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX8Y8.setText("x8 y8");
+                btnLocationX8Y8.setFocusable(false);
+                btnLocationX8Y8.setSelected(true);
+                pnlTable.add(btnLocationX8Y8);
+        btnLocationX1Y7 = new JButton();
+        btnLocationX1Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX1Y7.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX1Y7.setText("x1 y7");
+                btnLocationX1Y7.setFocusable(false);
+                btnLocationX1Y7.setSelected(true);
+                pnlTable.add(btnLocationX1Y7);
+        btnLocationX2Y7 = new JButton();
+        btnLocationX2Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX2Y7.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX2Y7.setText("x2 y7");
+                btnLocationX2Y7.setFocusable(false);
+                pnlTable.add(btnLocationX2Y7);
+        btnLocationX3Y7 = new JButton();
+        btnLocationX3Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX3Y7.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX3Y7.setText("x3 y7");
+                btnLocationX3Y7.setFocusable(false);
+                btnLocationX3Y7.setSelected(true);
+                pnlTable.add(btnLocationX3Y7);
+        btnLocationX4Y7 = new JButton();
+        btnLocationX4Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX4Y7.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX4Y7.setText("x4 y7");
+                btnLocationX4Y7.setFocusable(false);
+                pnlTable.add(btnLocationX4Y7);
+        btnLocationX5Y7 = new JButton();
+        btnLocationX5Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX5Y7.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX5Y7.setText("x5 y7");
+                btnLocationX5Y7.setFocusable(false);
+                btnLocationX5Y7.setSelected(true);
+                pnlTable.add(btnLocationX5Y7);
+        btnLocationX6Y7 = new JButton();
+        btnLocationX6Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX6Y7.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX6Y7.setText("x6 y7");
+                btnLocationX6Y7.setFocusable(false);
+                pnlTable.add(btnLocationX6Y7);
+        btnLocationX7Y7 = new JButton();
+        btnLocationX7Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX7Y7.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX7Y7.setText("x7 y7");
+                btnLocationX7Y7.setFocusable(false);
+                btnLocationX7Y7.setSelected(true);
+                pnlTable.add(btnLocationX7Y7);
+        btnLocationX8Y7 = new JButton();
+        btnLocationX8Y7.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX8Y7.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX8Y7.setText("x8 y7");
+                btnLocationX8Y7.setFocusable(false);
+                pnlTable.add(btnLocationX8Y7);
+        btnLocationX1Y6 = new JButton();
+        btnLocationX1Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX1Y6.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX1Y6.setText("x1 y6");
+                btnLocationX1Y6.setFocusable(false);
+                pnlTable.add(btnLocationX1Y6);
+        btnLocationX2Y6 = new JButton();
+        btnLocationX2Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX2Y6.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX2Y6.setText("x2 y6");
+                btnLocationX2Y6.setFocusable(false);
+                btnLocationX2Y6.setSelected(true);
+                pnlTable.add(btnLocationX2Y6);
+        btnLocationX3Y6 = new JButton();
+        btnLocationX3Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX3Y6.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX3Y6.setText("x3 y6");
+                btnLocationX3Y6.setFocusable(false);
+                pnlTable.add(btnLocationX3Y6);
+        btnLocationX4Y6 = new JButton();
+        btnLocationX4Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX4Y6.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX4Y6.setText("x4 y6");
+                btnLocationX4Y6.setFocusable(false);
+                btnLocationX4Y6.setSelected(true);
+                pnlTable.add(btnLocationX4Y6);
+        btnLocationX5Y6 = new JButton();
+        btnLocationX5Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX5Y6.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX5Y6.setText("x5 y6");
+                btnLocationX5Y6.setFocusable(false);
+                pnlTable.add(btnLocationX5Y6);
+        btnLocationX6Y6 = new JButton();
+        btnLocationX6Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX6Y6.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX6Y6.setText("x6 y6");
+                btnLocationX6Y6.setFocusable(false);
+                btnLocationX6Y6.setSelected(true);
+                pnlTable.add(btnLocationX6Y6);
+        btnLocationX7Y6 = new JButton();
+        btnLocationX7Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX7Y6.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX7Y6.setText("x7 y6");
+                btnLocationX7Y6.setFocusable(false);
+                pnlTable.add(btnLocationX7Y6);
+        btnLocationX8Y6 = new JButton();
+        btnLocationX8Y6.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX8Y6.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX8Y6.setText("x8 y6");
+                btnLocationX8Y6.setFocusable(false);
+                btnLocationX8Y6.setSelected(true);
+                pnlTable.add(btnLocationX8Y6);
+        btnLocationX1Y5 = new JButton();
+        btnLocationX1Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX1Y5.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX1Y5.setText("x1 y5");
+                btnLocationX1Y5.setFocusable(false);
+                btnLocationX1Y5.setSelected(true);
+                pnlTable.add(btnLocationX1Y5);
+        btnLocationX2Y5 = new JButton();
+        btnLocationX2Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX2Y5.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX2Y5.setText("x2 y5");
+                btnLocationX2Y5.setFocusable(false);
+                pnlTable.add(btnLocationX2Y5);
+        btnLocationX3Y5 = new JButton();
+        btnLocationX3Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX3Y5.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX3Y5.setText("x3 y5");
+                btnLocationX3Y5.setFocusable(false);
+                btnLocationX3Y5.setSelected(true);
+                pnlTable.add(btnLocationX3Y5);
+        btnLocationX4Y5 = new JButton();
+        btnLocationX4Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX4Y5.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX4Y5.setText("x4 y5");
+                btnLocationX4Y5.setFocusable(false);
+                pnlTable.add(btnLocationX4Y5);
+        btnLocationX5Y5 = new JButton();
+        btnLocationX5Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX5Y5.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX5Y5.setText("x5 y5");
+                btnLocationX5Y5.setFocusable(false);
+                btnLocationX5Y5.setSelected(true);
+                pnlTable.add(btnLocationX5Y5);
+        btnLocationX6Y5 = new JButton();
+        btnLocationX6Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX6Y5.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX6Y5.setText("x6 y5");
+                btnLocationX6Y5.setFocusable(false);
+                pnlTable.add(btnLocationX6Y5);
+        btnLocationX7Y5 = new JButton();
+        btnLocationX7Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX7Y5.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX7Y5.setText("x7 y5");
+                btnLocationX7Y5.setFocusable(false);
+                btnLocationX7Y5.setSelected(true);
+                pnlTable.add(btnLocationX7Y5);
+        btnLocationX8Y5 = new JButton();
+        btnLocationX8Y5.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX8Y5.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX8Y5.setText("x8 y5");
+                btnLocationX8Y5.setFocusable(false);
+                pnlTable.add(btnLocationX8Y5);
+        btnLocationX1Y4 = new JButton();
+        btnLocationX1Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX1Y4.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX1Y4.setText("x1 y4");
+                btnLocationX1Y4.setFocusable(false);
+                pnlTable.add(btnLocationX1Y4);
+        btnLocationX2Y4 = new JButton();
+        btnLocationX2Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX2Y4.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX2Y4.setText("x2 y4");
+                btnLocationX2Y4.setFocusable(false);
+                btnLocationX2Y4.setSelected(true);
+                pnlTable.add(btnLocationX2Y4);
+        btnLocationX3Y4 = new JButton();
+        btnLocationX3Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX3Y4.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX3Y4.setText("x3 y4");
+                btnLocationX3Y4.setFocusable(false);
+                pnlTable.add(btnLocationX3Y4);
+        btnLocationX4Y4 = new JButton();
+        btnLocationX4Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX4Y4.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX4Y4.setText("x4 y4");
+                btnLocationX4Y4.setFocusable(false);
+                btnLocationX4Y4.setSelected(true);
+                pnlTable.add(btnLocationX4Y4);
+        btnLocationX5Y4 = new JButton();
+        btnLocationX5Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX5Y4.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX5Y4.setText("x5 y4");
+                btnLocationX5Y4.setFocusable(false);
+                pnlTable.add(btnLocationX5Y4);
+        btnLocationX6Y4 = new JButton();
+        btnLocationX6Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX6Y4.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX6Y4.setText("x6 y4");
+                btnLocationX6Y4.setFocusable(false);
+                btnLocationX6Y4.setSelected(true);
+                pnlTable.add(btnLocationX6Y4);
+        btnLocationX7Y4 = new JButton();
+        btnLocationX7Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX7Y4.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX7Y4.setText("x7 y4");
+                btnLocationX7Y4.setFocusable(false);
+                pnlTable.add(btnLocationX7Y4);
+        btnLocationX8Y4 = new JButton();
+        btnLocationX8Y4.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX8Y4.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX8Y4.setText("x8 y4");
+                btnLocationX8Y4.setFocusable(false);
+                btnLocationX8Y4.setSelected(true);
+                pnlTable.add(btnLocationX8Y4);
+        btnLocationX1Y3 = new JButton();
+        btnLocationX1Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX1Y3.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX1Y3.setText("x1 y3");
+                btnLocationX1Y3.setFocusable(false);
+                btnLocationX1Y3.setSelected(true);
+                pnlTable.add(btnLocationX1Y3);
+        btnLocationX2Y3 = new JButton();
+        btnLocationX2Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX2Y3.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX2Y3.setText("x2 y3");
+                btnLocationX2Y3.setFocusable(false);
+                pnlTable.add(btnLocationX2Y3);
+        btnLocationX3Y3 = new JButton();
+        btnLocationX3Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX3Y3.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX3Y3.setText("x3 y3");
+                btnLocationX3Y3.setFocusable(false);
+                btnLocationX3Y3.setSelected(true);
+                pnlTable.add(btnLocationX3Y3);
+        btnLocationX4Y3 = new JButton();
+        btnLocationX4Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX4Y3.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX4Y3.setText("x4 y3");
+                btnLocationX4Y3.setFocusable(false);
+                pnlTable.add(btnLocationX4Y3);
+        btnLocationX5Y3 = new JButton();
+        btnLocationX5Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX5Y3.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX5Y3.setText("x5 y3");
+                btnLocationX5Y3.setFocusable(false);
+                btnLocationX5Y3.setSelected(true);
+                pnlTable.add(btnLocationX5Y3);
+        btnLocationX6Y3 = new JButton();
+        btnLocationX6Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX6Y3.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX6Y3.setText("x6 y3");
+                btnLocationX6Y3.setFocusable(false);
+                pnlTable.add(btnLocationX6Y3);
+        btnLocationX7Y3 = new JButton();
+        btnLocationX7Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX7Y3.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX7Y3.setText("x7 y3");
+                btnLocationX7Y3.setFocusable(false);
+                btnLocationX7Y3.setSelected(true);
+                pnlTable.add(btnLocationX7Y3);
+        btnLocationX8Y3 = new JButton();
+        btnLocationX8Y3.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX8Y3.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX8Y3.setText("x8 y3");
+                btnLocationX8Y3.setFocusable(false);
+                pnlTable.add(btnLocationX8Y3);
+        btnLocationX1Y2 = new JButton();
+        btnLocationX1Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX1Y2.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX1Y2.setText("x1 y2");
+                btnLocationX1Y2.setFocusable(false);
+                pnlTable.add(btnLocationX1Y2);
+        btnLocationX2Y2 = new JButton();
+        btnLocationX2Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX2Y2.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX2Y2.setText("x2 y2");
+                btnLocationX2Y2.setFocusable(false);
+                btnLocationX2Y2.setSelected(true);
+                pnlTable.add(btnLocationX2Y2);
+        btnLocationX3Y2 = new JButton();
+        btnLocationX3Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX3Y2.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX3Y2.setText("x3 y2");
+                btnLocationX3Y2.setFocusable(false);
+                pnlTable.add(btnLocationX3Y2);
+        btnLocationX4Y2 = new JButton();
+        btnLocationX4Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX4Y2.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX4Y2.setText("x4 y2");
+                btnLocationX4Y2.setFocusable(false);
+                btnLocationX4Y2.setSelected(true);
+                pnlTable.add(btnLocationX4Y2);
+        btnLocationX5Y2 = new JButton();
+        btnLocationX5Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX5Y2.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX5Y2.setText("x5 y2");
+                btnLocationX5Y2.setFocusable(false);
+                pnlTable.add(btnLocationX5Y2);
+        btnLocationX6Y2 = new JButton();
+        btnLocationX6Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX6Y2.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX6Y2.setText("x6 y2");
+                btnLocationX6Y2.setFocusable(false);
+                btnLocationX6Y2.setSelected(true);
+                pnlTable.add(btnLocationX6Y2);
+        btnLocationX7Y2 = new JButton();
+        btnLocationX7Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX7Y2.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX7Y2.setText("x7 y2");
+                btnLocationX7Y2.setFocusable(false);
+                pnlTable.add(btnLocationX7Y2);
+        btnLocationX8Y2 = new JButton();
+        btnLocationX8Y2.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX8Y2.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX8Y2.setText("x8 y2");
+                btnLocationX8Y2.setFocusable(false);
+                btnLocationX8Y2.setSelected(true);
+                pnlTable.add(btnLocationX8Y2);
+        btnLocationX1Y1 = new JButton();
+        btnLocationX1Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX1Y1.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX1Y1.setText("x1 y1");
+                btnLocationX1Y1.setFocusable(false);
+                btnLocationX1Y1.setSelected(true);
+                pnlTable.add(btnLocationX1Y1);
+        btnLocationX2Y1 = new JButton();
+        btnLocationX2Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX2Y1.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX2Y1.setText("x2 y1");
+                btnLocationX2Y1.setFocusable(false);
+                pnlTable.add(btnLocationX2Y1);
+        pnlTable.add(btnLocationX3Y1);
+        pnlTable.add(btnLocationX4Y1);
+        btnLocationX5Y1 = new JButton();
+        btnLocationX5Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX5Y1.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX5Y1.setText("x5 y1");
+                btnLocationX5Y1.setFocusable(false);
+                btnLocationX5Y1.setSelected(true);
+                pnlTable.add(btnLocationX5Y1);
+        btnLocationX6Y1 = new JButton();
+        btnLocationX6Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX6Y1.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX6Y1.setText("x6 y1");
+                btnLocationX6Y1.setFocusable(false);
+                pnlTable.add(btnLocationX6Y1);
+        btnLocationX7Y1 = new JButton();
+        btnLocationX7Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX7Y1.setBackground(new java.awt.Color(102, 102, 102));
+                btnLocationX7Y1.setText("x7 y1");
+                btnLocationX7Y1.setFocusable(false);
+                btnLocationX7Y1.setSelected(true);
+                pnlTable.add(btnLocationX7Y1);
+        btnLocationX8Y1 = new JButton();
+        btnLocationX8Y1.setToolTipText("Clique aqui para selecionar essas coordenadas (X, Y) como posi\u00E7\u00E3o inicial.");
+        
+                btnLocationX8Y1.setBackground(new java.awt.Color(255, 255, 255));
+                btnLocationX8Y1.setText("x8 y1");
+                btnLocationX8Y1.setFocusable(false);
+                pnlTable.add(btnLocationX8Y1);
         getContentPane().setLayout(groupLayout);
 
         pack();
     }                   
 
     @Override
-    public void resetCoordinateX() {
-        this.edtCoordinateX.setValue(0);
+    public void resetInitialCoordinateX() {
+        this.edtInitialCoordinateX.setValue(0);
     }
 
     @Override
-    public void resetCoordinateY() {
-        this.edtCoordinateY.setValue(0);
+    public void resetInitialCoordinateY() {
+        this.edtInitialCoordinateY.setValue(0);
     }
 
     @Override
@@ -1189,6 +1053,7 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 	   this.btnClear.addActionListener(new EventsMain.ClearActionPerformed(this.controller));
 	   this.btnExecute.addActionListener(new EventsMain.ExecuteActionPerformed(this.controller));
 	   this.lblInitialColor.addMouseListener(new EventsMain.ChangeInitialColorMouseClicked(this.controller));
+	   this.lblFinalColor.addMouseListener(new EventsMain.ChangeFinalColorMouseClicked(this.controller));
 	   
 	   for (Component component: this.pnlTable.getComponents()) {
 		   JButton btn = (JButton) component;
@@ -1246,13 +1111,13 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
     
 	@Override
 	public DTOLocation getInitialLocation() {
-		return new DTOLocation(Integer.parseInt(this.edtCoordinateX.getValue().toString()), Integer.parseInt(this.edtCoordinateY.getValue().toString()));
+		return new DTOLocation(Integer.parseInt(this.edtInitialCoordinateX.getValue().toString()), Integer.parseInt(this.edtInitialCoordinateY.getValue().toString()));
 	}
 
 	@Override
 	public void setInitialLocation(DTOLocation initialLocation) {
-		this.edtCoordinateX.setValue(initialLocation.getX());
-		this.edtCoordinateY.setValue(initialLocation.getY());
+		this.edtInitialCoordinateX.setValue(initialLocation.getX());
+		this.edtInitialCoordinateY.setValue(initialLocation.getY());
 	}
 
 	@Override
@@ -1304,5 +1169,44 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 			separator+= "=";
 		
 		this.edtVisitedWays.setText(this.edtVisitedWays.getText().concat(separator));		
+	}
+
+	@Override
+	public DTOLocation getFinalLocation() {
+		return new DTOLocation(Integer.parseInt(this.edtFinalCoordinateX.getValue().toString()), Integer.parseInt(this.edtFinalCoordinateY.getValue().toString()));		
+	}
+
+	@Override
+	public void setFinalLocation(DTOLocation finalLocation) {
+		this.edtFinalCoordinateX.setValue(finalLocation.getX());
+		this.edtFinalCoordinateY.setValue(finalLocation.getY());
+	}
+
+	@Override
+	public void changeFinalLabelColor() {
+		this.changeLabelColor(this.lblFinalColor);		
+	}
+
+	@Override
+	public void changeFinalLocationColor(String coordinateXY) {
+		this.changeLocationColor(coordinateXY, this.lblFinalColor.getForeground());
+	}
+
+	@Override
+	public void resetFinalCoordinateX() {
+		this.edtFinalCoordinateX.setValue(0);		
+	}
+
+	@Override
+	public void resetFinalCoordinateY() {
+		this.edtFinalCoordinateY.setValue(0);		
+	}
+
+	@Override
+	public void changeToolTipTextLocations(String toolTipText) {
+		for (Component component : this.pnlTable.getComponents()) {
+			JButton btn = (JButton) component; 
+			btn.setToolTipText(toolTipText);
+		}		
 	}
 }
