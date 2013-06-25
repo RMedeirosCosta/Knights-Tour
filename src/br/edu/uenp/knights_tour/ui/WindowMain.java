@@ -1209,4 +1209,9 @@ public class WindowMain extends javax.swing.JFrame implements ViewMain {
 			btn.setToolTipText(toolTipText);
 		}		
 	}
+
+	@Override
+	public void printDestination(String coordinateXY) {
+		this.edtVisitedWays.setText(this.edtVisitedWays.getText()+"Destino: "+coordinateXY);		
+	}
 }

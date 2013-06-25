@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.edu.uenp.knights_tour.domain.entity.Location;
+import br.edu.uenp.knights_tour.domain.exception.DestinationLocationFound;
+import br.edu.uenp.knights_tour.domain.exception.LocationOffTheBoardException;
 
 public class VisitedWays {
 	
@@ -25,7 +27,7 @@ public class VisitedWays {
     	return nodes;
 	}
 	
-    public void buildHierarchy(Location parent) {
+    public void buildHierarchy(Location parent) throws DestinationLocationFound {
     	Set<Location> nodesNotAdded = this.getNodesNotAdded(parent);
     	
     	if (nodesNotAdded.isEmpty())
@@ -39,7 +41,10 @@ public class VisitedWays {
     		try {    			
     			node = new Location(destination.getX(), destination.getY(), parent);
     			parent.getNodes().add(node);
-    		} catch(Exception ex) {
+    			
+    			if ((this.destination != null) && (this.destination.equals(node)))
+    				throw new DestinationLocationFound(node);
+    		} catch(LocationOffTheBoardException ex) {
     			throw new InvalidParameterException(ex.getMessage());
     		}
 		}

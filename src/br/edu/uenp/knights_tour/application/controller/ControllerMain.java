@@ -4,6 +4,7 @@ import br.edu.uenp.knights_tour.application.dto.DTOLocation;
 import br.edu.uenp.knights_tour.application.kind.EnumLocationSelection;
 import br.edu.uenp.knights_tour.application.view.ViewMain;
 import br.edu.uenp.knights_tour.domain.entity.Location;
+import br.edu.uenp.knights_tour.domain.exception.DestinationLocationFound;
 import br.edu.uenp.knights_tour.domain.exception.LocationOffTheBoardException;
 import br.edu.uenp.knights_tour.domain.service.VisitedWays;
 
@@ -11,7 +12,8 @@ import br.edu.uenp.knights_tour.domain.service.VisitedWays;
 public class ControllerMain {
     
     private ViewMain 			  view;
-    private EnumLocationSelection currentLocation;	
+    private EnumLocationSelection currentLocation;
+    private final Integer EMPTY_LEVEL = 0;
     
     public ControllerMain(ViewMain visao) {
         this.view 			 = visao;
@@ -37,13 +39,30 @@ public class ControllerMain {
         try {
         	DTOLocation DTOinitialLocation = this.view.getInitialLocation();        	
             Location initialLocation 	   = new Location(DTOinitialLocation.getX(), DTOinitialLocation.getY());
+
+        	DTOLocation DTOfinalLocation;
+        	Location finalLocation;
+            
+            try {
+            	DTOfinalLocation = this.view.getFinalLocation();
+            	finalLocation	     = new Location(DTOfinalLocation.getX(), DTOfinalLocation.getY());
+            } catch(LocationOffTheBoardException ex) {
+            	finalLocation = null;
+            }
             
         	this.view.showWarning("Essa operação pode demorar alguns segundos.\n Aproveite para ir tomar um café :)");
         	this.view.resetAllColors();            
             this.view.changeInitialLocationColor(initialLocation.toStringClear());
             
             VisitedWays service = new VisitedWays();
-            service.buildHierarchy(initialLocation);
+            service.setDestination(finalLocation);
+            
+            try {
+            	service.buildHierarchy(initialLocation);
+            } catch(DestinationLocationFound ex) {
+            	this.printWays(ex.getDestination(), EMPTY_LEVEL);
+            	return;
+            }
             
              this.printDestination(initialLocation, 1);
             
@@ -71,7 +90,12 @@ public class ControllerMain {
     private void printWays(Location destination, Integer level) {
     	this.view.insertLineBreak();    	
     	this.view.insertLineBreak();
-    	this.view.printDestination(destination.toString(), level);
+    	
+    	if (level != EMPTY_LEVEL) 
+    		this.view.printDestination(destination.toString(), level);
+    	else
+    		this.view.printDestination(destination.toString());
+    	
     	this.view.insertLineBreak();
     	this.view.insertLabel();    	
     	

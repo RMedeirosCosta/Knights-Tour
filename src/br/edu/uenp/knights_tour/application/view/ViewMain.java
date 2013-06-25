@@ -19,6 +19,7 @@ public interface ViewMain {
     public void insertSeparator();
     public void paintDestinationLocationColor(String coordinateXY, Integer level);
     public void printDestination(String coordinateXY, Integer level);
+    public void printDestination(String coordinateXY);
     public void printVisitedWay(String coordinateXY);
     public void setFinalLocation(DTOLocation finalLocation);
     public void setInitialLocation(DTOLocation initialLocation);
