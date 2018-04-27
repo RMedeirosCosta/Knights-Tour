@@ -1,0 +1,13 @@
+<project name="knights-tour">
+  <delete dir="build"/>
+  <mkdir dir="build"/>
+  <javac srcdir="src" destdir="build" encoding="ISO-8859-1">
+    <classpath>
+    </classpath>
+  </javac>  
+  <jar destfile="knightsTour.jar" basedir="build">
+    <manifest>
+      <attribute name="Main-class" value="br.edu.uenp.knights_tour.KnightSTour"/>
+    </manifest>
+  </jar>
+</project>
