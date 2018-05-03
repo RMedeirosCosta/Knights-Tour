@@ -1,19 +1,54 @@
 <project name="knights-tour">
+
   <target name="clean">
     <delete dir="build"/>
     <mkdir dir="build"/>
+    <delete dir="build/test-classes"/>
+    <mkdir dir="build/test-classes"/>
   </target>
+
   <target name="compile" depends="clean">
     <javac srcdir="src" destdir="build" encoding="ISO-8859-1">
       <classpath>
       </classpath>
     </javac>  
   </target>
+
   <target name="build" depends="compile">
     <jar destfile="knightsTour.jar" basedir="build">
       <manifest>
         <attribute name="Main-class" value="br.edu.uenp.knights_tour.KnightSTour"/>
       </manifest>
     </jar>
+  </target>
+
+  <target name="compile-tests" depends="compile">
+    <javac destdir="build/test-classes" srcdir="test" encoding="ISO-8859-1">
+      <classpath>
+        <pathelement path="build" />
+        <fileset dir="lib-test">
+          <include name="*.jar" />
+        </fileset>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="run-tests" depends="compile-tests">
+    <junit showoutput="true" printsummary="true">
+      <batchtest>
+        <formatter type="plain"/>
+        <fileset dir="test">
+          <include name="**/Test*.java" />
+        </fileset>
+      </batchtest>
+
+      <classpath>
+        <pathelement path="build" />
+        <pathelement path="build/test-classes" />
+        <fileset dir="lib-test">
+          <include name="*.jar" />
+        </fileset>
+      </classpath>
+    </junit>
   </target>
 </project>
